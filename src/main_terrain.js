@@ -44,20 +44,6 @@ async function main() {
 		Resource loading
 	---------------------------------------------------------------*/
 
-	/*
-	The textures fail to load when the site is opened from local file (file://) due to "cross-origin".
-	Solutions:
-	* run a local webserver
-		python -m http.server 8000
-		# open localhost:8000
-	OR
-	* run chromium with CLI flag
-		"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --allow-file-access-from-files index.html
-
-	* edit config in firefox
-		security.fileuri.strict_origin_policy = false
-	*/
-
 	// Start downloads in parallel
 	const resources = {};
 
@@ -242,11 +228,6 @@ async function main() {
 
 			terrain_actor.draw(scene_info);
 		}
-
-// 		debug_text.textContent = `
-// Hello! Sim time is ${sim_time.toFixed(2)} s
-// Camera: angle_z ${(cam_angle_z / deg_to_rad).toFixed(1)}, angle_y ${(cam_angle_y / deg_to_rad).toFixed(1)}, distance ${(cam_distance_factor*cam_distance_base).toFixed(1)}
-// `;
 	});
 }
 

@@ -61,13 +61,8 @@ function terrain_build_mesh(height_map) {
 				1.,
 			]);
 
-			/* TODO 6.1
-			Generate the displaced terrain vertex corresponding to integer grid location (gx, gy). 
-			The height (Z coordinate) of this vertex is determined by height_map.
-			If the point falls below WATER_LEVEL:
-			* it should be clamped back to WATER_LEVEL.
-			* the normal should be [0, 0, 1]
-
+			
+			/*
 			The XY coordinates are calculated so that the full grid covers the square [-0.5, 0.5]^2 in the XY plane.
 			*/
 
@@ -78,21 +73,13 @@ function terrain_build_mesh(height_map) {
 			if(elevation < WATER_LEVEL){
 				normals[idx] = [0,0,1];
 			}
-
-			/*
-			max_ver_x = Math.max(max_ver_x , x);
-			max_ver_y = Math.max(max_ver_y , y);
-			min_ver_x = Math.min(min_ver_x , x);
-			min_ver_y = Math.min(min_ver_y , y);
-			*/
-
 			vertices[idx] = [x,y,z];
 		}
 	}
 
 	for(let gy = 0; gy < grid_height - 1; gy++) {
 		for(let gx = 0; gx < grid_width - 1; gx++) {
-			/* TODO 6.1
+			/*
 			Triangulate the grid cell whose lower lefthand corner is grid index (gx, gy).
 			You will need to create two triangles to fill each square.
 			*/
@@ -106,14 +93,6 @@ function terrain_build_mesh(height_map) {
 			// faces.push([v1, v2, v3]); // adds a triangle on vertex indices v1, v2, v3
 		}
 	}
-
-	
-
-	console.log({
-		vertex_positions: vertices,
-		vertex_normals: normals,
-		faces: faces,
-	} , WATER_LEVEL);
 
 	return {
 		vertex_positions: vertices,

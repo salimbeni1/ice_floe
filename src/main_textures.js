@@ -37,8 +37,8 @@ async function main() {
 
 			update_needed = true;
 		}
-		//resize_canvas();
-		//window.addEventListener('resize', resize_canvas);
+		resize_canvas();
+		window.addEventListener('resize', resize_canvas);
 	}
 
 	const debug_overlay = document.getElementById('debug-overlay');
