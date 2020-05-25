@@ -25,6 +25,8 @@
 <!-- our implementation -->
 <script src="src/noise.js" defer="true"></script>
 <script src="src/main_textures.js" defer="true"></script>
+<script src="src/terrain.js" defer="true"></script>
+<script src="src/main_terrain.js" defer="true"></script>
 
 
 
@@ -45,6 +47,9 @@
 	</p>
 	<ul id="variants"></ul>
 	<pre id="debug-text"></pre>
+	<p id="view-options">
+		<span id="btn-preset-view" class="button">Preset view <strong class="keyboard">c</strong></span>
+	</p>
 </div>
 
 
@@ -53,7 +58,7 @@
 <!-- where we draw the simulation -->
 <div style="display: flex; flex-direction: row;width: 100%; height: 100%;">
 	<canvas id="textures" style="width: 50vw; height: 50vw;"></canvas>
-	<canvas id="simulation" style="width: 50vw;"></canvas>
+	<canvas id="simulation" style="width: 50vw; height: 50vw;"></canvas>
 </div>
 
 </main>

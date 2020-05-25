@@ -118,7 +118,8 @@ function init_noise(regl, resources) {
 		new NoiseTexture('W-Manh', 'tex_worley_manhatan'),
 		new NoiseTexture('W-EM', 'tex_worley_manhatan_euclidian'),
 		new NoiseTexture('FBM', 'tex_fbm'),
-		new NoiseTexture('Turb', 'tex_turbulence')
+		new NoiseTexture('Turb', 'tex_turbulence'),
+		new NoiseTexture('FBM_for_terrain', 'tex_fbm_for_terrain', true),
 	];
 
 	return noise_textures;
