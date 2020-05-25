@@ -78,7 +78,7 @@ function init_noise(regl, resources) {
 						vec3 color = ${this.shader_func_name}(v2f_tex_coords);
 						gl_FragColor = vec4(color, 1.0);
 					} 
-					`;		
+					`;
 		}
 
 
