@@ -76,19 +76,6 @@ async function main() {
 	let zoom_factor = 1.0;
 	const ZOOM_MIN = 0.1;
 	const ZOOM_MAX = 10.0;
-
-	window.addEventListener('wheel', (event) => {
-		// scroll wheel to zoom in or out
-		const factor_mul_base = 1.08;
-		const factor_mul = (event.deltaY > 0) ? factor_mul_base : 1./factor_mul_base;
-		zoom_factor *= factor_mul;
-		zoom_factor = Math.max(ZOOM_MIN, Math.min(zoom_factor, ZOOM_MAX));
-		event.preventDefault(); // don't scroll the page too...
-		//update_cam_transform();
-		
-		update_needed = true;
-	})
-
 	
 	const mouse_offset = [0, 0];
 
@@ -119,6 +106,22 @@ async function main() {
 			}
 		}
 	});
+
+
+	window.addEventListener('wheel', (event) => {
+		if(canvas_elem.mouseIsOver) {
+			// scroll wheel to zoom in or out
+			const factor_mul_base = 1.08;
+			const factor_mul = (event.deltaY > 0) ? factor_mul_base : 1./factor_mul_base;
+			zoom_factor *= factor_mul;
+			zoom_factor = Math.max(ZOOM_MIN, Math.min(zoom_factor, ZOOM_MAX));
+			event.preventDefault(); // don't scroll the page too...
+			//update_cam_transform();
+			
+			update_needed = true;
+		}
+	})
+
 
 
 	/*---------------------------------------------------------------

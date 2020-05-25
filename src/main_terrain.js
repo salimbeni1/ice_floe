@@ -26,8 +26,6 @@ async function main() {
 	});
 
 
-
-
 	let update_needed = true;
 
 	{
@@ -120,36 +118,49 @@ async function main() {
 	// Prevent clicking and dragging from selecting the GUI text.
 	canvas_elem.addEventListener('mousedown', (event) => { event.preventDefault(); });
 
+	// to know if the mouse is over the canvas
+	canvas_elem.mouseIsOver = false;
+	canvas_elem.onmouseover = function()   {
+		canvas_elem.mouseIsOver = true;
+   	};
+   	canvas_elem.onmouseout = function()   {
+		canvas_elem.mouseIsOver = false;
+   	}
+
 	// Rotate camera position by dragging with the mouse
 	window.addEventListener('mousemove', (event) => {
 		// if left or middle button is pressed
-		if (event.buttons & 1 || event.buttons & 4) {
-			if (event.shiftKey) {
-				const r = mat2.fromRotation(mat2.create(), -cam_angle_z);
-				const offset = vec2.transformMat2([0, 0], [event.movementY, event.movementX], r);
-				vec2.scale(offset, offset, -0.01);
-				cam_target[0] += offset[0];
-				cam_target[1] += offset[1];
-			} else {
-				cam_angle_z += event.movementX*0.005;
-				cam_angle_y += -event.movementY*0.005;
+		if (event.buttons & 1 || event.buttons & 4) { 
+			if(canvas_elem.mouseIsOver){
+				if (event.shiftKey) {
+					const r = mat2.fromRotation(mat2.create(), -cam_angle_z);
+					const offset = vec2.transformMat2([0, 0], [event.movementY, event.movementX], r);
+					vec2.scale(offset, offset, -0.01);
+					cam_target[0] += offset[0];
+					cam_target[1] += offset[1];
+				} else {
+					cam_angle_z += event.movementX*0.005;
+					cam_angle_y += -event.movementY*0.005;
+				}
+				update_cam_transform();
+				update_needed = true;
 			}
-			update_cam_transform();
-			update_needed = true;
 		}
 
 	});
 
 	window.addEventListener('wheel', (event) => {
-		// scroll wheel to zoom in or out
-		const factor_mul_base = 1.08;
-		const factor_mul = (event.deltaY > 0) ? factor_mul_base : 1./factor_mul_base;
-		cam_distance_factor *= factor_mul;
-		cam_distance_factor = Math.max(0.1, Math.min(cam_distance_factor, 4));
-		// console.log('wheel', event.deltaY, event.deltaMode);
-		event.preventDefault(); // don't scroll the page too...
-		update_cam_transform();
-		update_needed = true;
+		if(canvas_elem.mouseIsOver){
+			// scroll wheel to zoom in or out
+			const factor_mul_base = 1.08;
+			const factor_mul = (event.deltaY > 0) ? factor_mul_base : 1./factor_mul_base;
+			cam_distance_factor *= factor_mul;
+			cam_distance_factor = Math.max(0.1, Math.min(cam_distance_factor, 4));
+			// console.log('wheel', event.deltaY, event.deltaMode);
+			event.preventDefault(); // don't scroll the page too...
+			update_cam_transform();
+			update_needed = true;
+		}
 	})
 
 	/*---------------------------------------------------------------
