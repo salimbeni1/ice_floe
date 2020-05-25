@@ -14,7 +14,9 @@ async function main() {
 	// https://github.com/regl-project/regl/blob/master/API.md
 
 	// The <canvas> (HTML element for drawing graphics) was created by REGL, lets take a handle to it.
-	const canvas_elem = document.getElementsByTagName('canvas')[0];
+	const canvas_elem = document.getElementById("textures");//document.getElementsByTagName('canvas')[0];
+
+	
 
 	const regl = createREGL({ // the canvas to use
 		canvas: canvas_elem,
@@ -35,8 +37,8 @@ async function main() {
 
 			update_needed = true;
 		}
-		resize_canvas();
-		window.addEventListener('resize', resize_canvas);
+		//resize_canvas();
+		//window.addEventListener('resize', resize_canvas);
 	}
 
 	const debug_overlay = document.getElementById('debug-overlay');
@@ -93,16 +95,28 @@ async function main() {
 	// Prevent clicking and dragging from selecting the GUI text.
 	canvas_elem.addEventListener('mousedown', (event) => { event.preventDefault(); });
 
+
+	// to know if the mouse is over the canvas
+	canvas_elem.mouseIsOver = false;
+	canvas_elem.onmouseover = function()   {
+		canvas_elem.mouseIsOver = true;
+   	};
+   	canvas_elem.onmouseout = function()   {
+		canvas_elem.mouseIsOver = false;
+   	}
+
 	// Register the functions to be executed when the mouse moves
 	window.addEventListener('mousemove', (event) => {
 		// if left or middle button is pressed
 		if (event.buttons & 1 || event.buttons & 4) {
-			// The GPU coordinate frame is from bottom left [-1, -1] to top right [1, 1].
-			// therefore the scale from pixels to canvas is  2 / [width, height] and we have to invert Y because pixel offsets are counted from the top-left corner.
-			mouse_offset[0] +=  2 * event.movementX / canvas_elem.clientWidth  * zoom_factor;
-			mouse_offset[1] += -2 * event.movementY / canvas_elem.clientHeight * zoom_factor;
+			if(canvas_elem.mouseIsOver){
+				// The GPU coordinate frame is from bottom left [-1, -1] to top right [1, 1].
+				// therefore the scale from pixels to canvas is  2 / [width, height] and we have to invert Y because pixel offsets are counted from the top-left corner.
+				mouse_offset[0] +=  2 * event.movementX / canvas_elem.clientWidth  * zoom_factor;
+				mouse_offset[1] += -2 * event.movementY / canvas_elem.clientHeight * zoom_factor;
 
-			update_needed = true;
+				update_needed = true;
+			}
 		}
 	});
 
@@ -173,9 +187,6 @@ async function main() {
 			selected_tex.draw_buffer_to_screen();
 		}
 
-// 		debug_text.textContent = `
-// Hello! Sim time is ${sim_time.toFixed(2)} s
-// `;
 	});
 }
 
