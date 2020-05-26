@@ -9,7 +9,7 @@ varying vec3 v2f_normal; // normal vector in camera coordinates
 varying vec3 v2f_dir_to_light; // direction to light source
 varying vec3 v2f_dir_from_view; // viewing vector (from eye to vertex in view coordinates)
 
-const vec3  light_color = vec3(1.0, 0.941, 0.898);
+const vec3  light_color = vec3(.0, 1., 1.);
 
 		
 void main () {
