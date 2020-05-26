@@ -71,6 +71,27 @@ async function main() {
 		}
 	}
 
+	// download images
+	const resourcesImages = {};
+
+	[
+		"posx.jpg",
+		"negx.jpg",
+		"posy.jpg",
+		"negy.jpg",
+		"posz.jpg",
+		"negz.jpg",
+	].forEach((textures_filename) => {
+		resourcesImages[`textures/${textures_filename}`] = load_texture(regl, `../src/textures/${textures_filename}`);
+	});
+
+	// Wait for all downloads to complete
+	for (const key in resourcesImages) {
+		if (resourcesImages.hasOwnProperty(key)) {
+			resourcesImages[key] = await resourcesImages[key]
+		}
+	}
+
 
 	/*---------------------------------------------------------------
 		Camera
