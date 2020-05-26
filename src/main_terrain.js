@@ -228,7 +228,7 @@ async function main() {
 			}
 
 			// Set the whole image to black
-			regl.clear({color: [0.9, 0.9, 1., 1]});
+			regl.clear({color: [0.0, 0.0, 0., 1]});
 
 			//terrain_actor.draw(scene_info);
 			ice_floe_actor.draw(scene_info);
