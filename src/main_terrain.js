@@ -73,6 +73,7 @@ async function main() {
 
 	// download images
 	const resourcesImages = {};
+	const imagesRes = {};
 
 	[
 		"posx.jpg",
@@ -82,7 +83,9 @@ async function main() {
 		"posz.jpg",
 		"negz.jpg",
 	].forEach((textures_filename) => {
-		resourcesImages[`textures/${textures_filename}`] = load_texture(regl, `../src/textures/${textures_filename}`);
+		imagesRes[`textures/${textures_filename}`] = new Image();
+		imagesRes[`textures/${textures_filename}`].src = `../src/textures/${textures_filename}`;
+		resourcesImages[`textures/${textures_filename}`] = load_texture(regl, `../src/textures/${textures_filename}` );
 	});
 
 	// Wait for all downloads to complete
@@ -90,6 +93,11 @@ async function main() {
 		if (resourcesImages.hasOwnProperty(key)) {
 			resourcesImages[key] = await resourcesImages[key]
 		}
+	}
+
+	// merge the 2 resources arrays
+	for (const key in imagesRes) {
+		resources[key] = imagesRes[key];
 	}
 
 
@@ -193,6 +201,8 @@ async function main() {
 	//const terrain_actor = init_terrain(regl, resources, texture_fbm.get_buffer());
 	const ice_floe_actor = init_ice_floe(regl , resources , texture_fbm.get_buffer() );
 
+	const environment_actor = init_environment(regl , resources , {} );
+
 	/*
 		UI
 	*/
@@ -253,6 +263,7 @@ async function main() {
 
 			//terrain_actor.draw(scene_info);
 			ice_floe_actor.draw(scene_info);
+			// environment_actor.draw({});
 		}
 	});
 }

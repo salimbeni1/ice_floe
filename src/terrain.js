@@ -171,6 +171,90 @@ function init_ice_floe(regl , resources , buffer ){
 }
 
 
+
+function init_environment(regl , resources , buffer){
+
+	const pipeline_draw_environment = regl({
+
+		context: {
+			view: ({tick}) => {
+			  const t = 0.01 * tick
+			  return mat4.lookAt([],
+				[30 * Math.cos(t), 2.5, 30 * Math.sin(t)],
+				[0, 2.5, 0],
+				[0, 1, 0])
+			}
+		  },
+
+
+		frag: `
+  			precision mediump float;
+			uniform samplerCube envmap;
+			varying vec3 reflectDir;
+			void main () {
+				gl_FragColor = textureCube(envmap, reflectDir);
+			}`,
+
+		vert: `
+			precision mediump float;
+			attribute vec2 position;
+			uniform mat4 view;
+			varying vec3 reflectDir;
+			void main() {
+				reflectDir = (view * vec4(position, 1, 0)).xyz;
+				gl_Position = vec4(position, 0, 1);
+			}`,
+
+
+		uniforms: {
+			envmap: regl.prop('cube'),
+			view: regl.context('view'),
+			projection: ({viewportWidth, viewportHeight}) =>
+			  mat4.perspective([],
+				Math.PI / 4,
+				viewportWidth / viewportHeight,
+				0.01,
+				1000),
+			invView: ({view}) => mat4.invert([], view)
+		},
+
+		attributes: {
+			position: [
+			  -4, -4,
+			  -4, 4,
+			  8, 0]
+		  },
+		  depth: {
+			mask: false,
+			enable: false
+		  },
+		  count: 3
+
+	});
+
+	class EnvironmentActor {
+		constructor() {
+			console.log(resources["textures/posx.jpg"]);
+
+			this.cube = regl.cube(
+				resources["textures/posx.jpg"], resources["textures/negx.jpg"],
+				resources["textures/posy.jpg"], resources["textures/negy.jpg"],
+				resources["textures/posz.jpg"], resources["textures/negz.jpg"],)
+		}
+
+		draw({}){
+			pipeline_draw_environment({
+				"cube" : this.cube
+				});
+		}
+
+	}
+
+	return new EnvironmentActor();
+
+
+}
+
 function init_terrain(regl, resources, height_map_buffer) {
 
 	const terrain_mesh = terrain_build_mesh(new BufferData(regl, height_map_buffer));
