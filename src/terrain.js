@@ -197,7 +197,8 @@ function init_environment(regl , resources , buffer){
 
 		uniforms: {
 			envmap: regl.prop('cube'),
-			view: mat4.lookAt([],
+			view: //regl.prop('mat_mvp'),
+				mat4.lookAt([],
 				[30 * Math.cos(3.14), 2.5, 30 * Math.sin(3.14)],
 				[0, 2.5, 0],
 				[0, 1, 0]),
@@ -219,17 +220,33 @@ function init_environment(regl , resources , buffer){
 
 	class EnvironmentActor {
 		constructor() {
+
+			this.mat_mvp = mat4.create();
+			this.mat_model_view = mat4.create();
+			this.mat_normals = mat3.create();
+			this.mat_model_to_world = mat4.create();
+
+
 			console.log(resources["textures/posx.jpg"]);
 
 			this.cube = regl.cube(
 				resources["textures/posx.jpg"], resources["textures/negx.jpg"],
 				resources["textures/posy.jpg"], resources["textures/negy.jpg"],
 				resources["textures/posz.jpg"], resources["textures/negz.jpg"],)
+
 		}
 
-		draw({}){
+		draw({mat_projection, mat_view, light_position_cam}) {
+			mat4_matmul_many(this.mat_model_view, mat_view, this.mat_model_to_world);
+			mat4_matmul_many(this.mat_mvp, mat_projection, this.mat_model_view);
+	
+			mat3.fromMat4(this.mat_normals, this.mat_model_view);
+			mat3.transpose(this.mat_normals, this.mat_normals);
+			mat3.invert(this.mat_normals, this.mat_normals);
+
 			pipeline_draw_environment({
-				"cube" : this.cube
+				cube : this.cube,
+				mat_mvp: this.mat_mvp,
 				});
 		}
 

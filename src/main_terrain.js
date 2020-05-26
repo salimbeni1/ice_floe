@@ -263,7 +263,7 @@ async function main() {
 
 			//terrain_actor.draw(scene_info);
 			
-			environment_actor.draw({});
+			environment_actor.draw(scene_info);
 			ice_floe_actor.draw(scene_info);
 		}
 	});
