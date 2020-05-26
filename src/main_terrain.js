@@ -57,6 +57,9 @@ async function main() {
 		"buffer_to_screen.vert",
 		"buffer_to_screen.frag",
 
+		"ice_floe.frag",
+		"ice_floe.vert",
+
 	].forEach((shader_filename) => {
 		resources[`shaders/${shader_filename}`] = load_text(`./src/shaders/${shader_filename}`);
 	});
@@ -166,7 +169,8 @@ async function main() {
 
 	texture_fbm.draw_texture_to_buffer({width: 96, height: 96, mouse_offset: [-12.24, 8.15]});
 
-	const terrain_actor = init_terrain(regl, resources, texture_fbm.get_buffer());
+	//const terrain_actor = init_terrain(regl, resources, texture_fbm.get_buffer());
+	const ice_floe_actor = init_ice_floe(regl , resources ,{});
 
 	/*
 		UI
@@ -226,7 +230,8 @@ async function main() {
 			// Set the whole image to black
 			regl.clear({color: [0.9, 0.9, 1., 1]});
 
-			terrain_actor.draw(scene_info);
+			//terrain_actor.draw(scene_info);
+			ice_floe_actor.draw({});
 		}
 	});
 }

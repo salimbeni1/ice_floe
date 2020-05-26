@@ -102,6 +102,54 @@ function terrain_build_mesh(height_map) {
 }
 
 
+function init_ice_floe(regl , resources , buffer ){
+
+	const pipeline_draw_ice_floe = regl({
+		attributes: {
+			position: [
+				[-1, 1],
+				[-1, -1],
+				[1, 1],
+
+				[1, -1],
+				[-1, -1],
+				[1, 1],
+			  ]
+		},
+		uniforms: {
+			color: [1, 0, 0, 1]
+		},
+
+		
+		vert: resources['shaders/ice_floe.vert'],
+		frag: resources['shaders/ice_floe.frag'],
+
+		count : 6
+
+	});
+
+
+	class IveFloeActor {
+		constructor() {
+			this.mat_mvp = mat4.create();
+			this.mat_model_view = mat4.create();
+			this.mat_normals = mat3.create();
+			this.mat_model_to_world = mat4.create();
+		}
+
+		draw({mat_projection, mat_view, light_position_cam}){
+			
+			pipeline_draw_ice_floe({
+				
+			});
+		}
+
+	}
+
+	return new IveFloeActor();
+}
+
+
 function init_terrain(regl, resources, height_map_buffer) {
 
 	const terrain_mesh = terrain_build_mesh(new BufferData(regl, height_map_buffer));
