@@ -123,7 +123,9 @@ function init_ice_floe(regl , resources , buffer ){
 			mat_normals: regl.prop('mat_normals'),
 
 			light_position: regl.prop('light_position'),
-			
+
+			texureBlock: buffer,
+
 			color: [1, 0, 0, 1]
 		},
 

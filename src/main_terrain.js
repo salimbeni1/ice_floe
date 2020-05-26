@@ -167,10 +167,10 @@ async function main() {
 		}
 	})();
 
-	texture_fbm.draw_texture_to_buffer({width: 96, height: 96, mouse_offset: [-12.24, 8.15]});
+	texture_fbm.draw_texture_to_buffer({width: 96, height: 96, mouse_offset: [0, 0]});
 
 	//const terrain_actor = init_terrain(regl, resources, texture_fbm.get_buffer());
-	const ice_floe_actor = init_ice_floe(regl , resources ,{});
+	const ice_floe_actor = init_ice_floe(regl , resources , texture_fbm.get_buffer() );
 
 	/*
 		UI
