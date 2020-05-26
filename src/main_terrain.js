@@ -231,7 +231,7 @@ async function main() {
 			regl.clear({color: [0.9, 0.9, 1., 1]});
 
 			//terrain_actor.draw(scene_info);
-			ice_floe_actor.draw({});
+			ice_floe_actor.draw(scene_info);
 		}
 	});
 }

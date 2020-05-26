@@ -117,10 +117,17 @@ function init_ice_floe(regl , resources , buffer ){
 			  ]
 		},
 		uniforms: {
+
+			mat_mvp: regl.prop('mat_mvp'),
+			mat_model_view: regl.prop('mat_model_view'),
+			mat_normals: regl.prop('mat_normals'),
+
+			light_position: regl.prop('light_position'),
+			
 			color: [1, 0, 0, 1]
 		},
 
-		
+
 		vert: resources['shaders/ice_floe.vert'],
 		frag: resources['shaders/ice_floe.frag'],
 
@@ -138,9 +145,20 @@ function init_ice_floe(regl , resources , buffer ){
 		}
 
 		draw({mat_projection, mat_view, light_position_cam}){
+
+			mat4_matmul_many(this.mat_model_view, mat_view, this.mat_model_to_world);
+			mat4_matmul_many(this.mat_mvp, mat_projection, this.mat_model_view);
+	
+			mat3.fromMat4(this.mat_normals, this.mat_model_view);
+			mat3.transpose(this.mat_normals, this.mat_normals);
+			mat3.invert(this.mat_normals, this.mat_normals);
 			
 			pipeline_draw_ice_floe({
-				
+				mat_mvp: this.mat_mvp,
+				mat_model_view: this.mat_model_view,
+				mat_normals: this.mat_normals,
+		
+				light_position: light_position_cam,
 			});
 		}
 
