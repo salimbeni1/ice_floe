@@ -131,7 +131,8 @@ function init_ice_floe(regl , resources , buffer ){
 
 
 		vert: resources['shaders/ice_floe.vert'],
-		frag: resources['shaders/ice_floe.frag'],
+		frag: resources['shaders/noise.frag'] +' '
+			+ resources['shaders/ice_floe.frag'],
 
 		count : 6
 
