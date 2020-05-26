@@ -37,5 +37,5 @@ void main () {
     vec4 env_color =  textureCube(envmap, normalize(reflectDir));
 
 
-    gl_FragColor = mix(vec4(color, 1.) , env_color , 0.1); // output: RGBA in 0..1 range
+    gl_FragColor = mix(vec4(color, 1.) , env_color , 0.06); // output: RGBA in 0..1 range
 }
