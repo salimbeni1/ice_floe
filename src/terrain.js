@@ -203,7 +203,6 @@ function init_environment(regl , resources , buffer){
 				[0, 1, 0]),
 		},
 
-		
 		attributes: {
 			position: [
 			  -4, -4,
