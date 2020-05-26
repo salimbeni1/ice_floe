@@ -176,17 +176,6 @@ function init_environment(regl , resources , buffer){
 
 	const pipeline_draw_environment = regl({
 
-		context: {
-			view: ({tick}) => {
-			  const t = 0.01 * tick
-			  return mat4.lookAt([],
-				[30 * Math.cos(t), 2.5, 30 * Math.sin(t)],
-				[0, 2.5, 0],
-				[0, 1, 0])
-			}
-		  },
-
-
 		frag: `
   			precision mediump float;
 			uniform samplerCube envmap;
@@ -208,16 +197,13 @@ function init_environment(regl , resources , buffer){
 
 		uniforms: {
 			envmap: regl.prop('cube'),
-			view: regl.context('view'),
-			projection: ({viewportWidth, viewportHeight}) =>
-			  mat4.perspective([],
-				Math.PI / 4,
-				viewportWidth / viewportHeight,
-				0.01,
-				1000),
-			invView: ({view}) => mat4.invert([], view)
+			view: mat4.lookAt([],
+				[30 * Math.cos(3.14), 2.5, 30 * Math.sin(3.14)],
+				[0, 2.5, 0],
+				[0, 1, 0]),
 		},
 
+		
 		attributes: {
 			position: [
 			  -4, -4,
