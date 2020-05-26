@@ -262,8 +262,9 @@ async function main() {
 			regl.clear({color: [0.0, 0.0, 0., 1]});
 
 			//terrain_actor.draw(scene_info);
+			
+			environment_actor.draw({});
 			ice_floe_actor.draw(scene_info);
-			// environment_actor.draw({});
 		}
 	});
 }
