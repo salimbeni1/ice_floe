@@ -118,6 +118,7 @@ function init_ice_floe(regl , resources , buffer ){
 		},
 		uniforms: {
 
+			envmap: regl.prop('cube'),
 			mat_mvp: regl.prop('mat_mvp'),
 			mat_model_view: regl.prop('mat_model_view'),
 			mat_normals: regl.prop('mat_normals'),
@@ -141,6 +142,12 @@ function init_ice_floe(regl , resources , buffer ){
 
 	class IveFloeActor {
 		constructor() {
+
+			this.cube = regl.cube(
+				resources["textures/posx.jpg"], resources["textures/negx.jpg"],
+				resources["textures/posy.jpg"], resources["textures/negy.jpg"],
+				resources["textures/posz.jpg"], resources["textures/negz.jpg"],)
+
 			this.mat_mvp = mat4.create();
 			this.mat_model_view = mat4.create();
 			this.mat_normals = mat3.create();
@@ -162,6 +169,7 @@ function init_ice_floe(regl , resources , buffer ){
 				mat_normals: this.mat_normals,
 		
 				light_position: light_position_cam,
+				cube : this.cube,
 			});
 		}
 
@@ -225,9 +233,6 @@ function init_environment(regl , resources , buffer){
 			this.mat_model_view = mat4.create();
 			this.mat_normals = mat3.create();
 			this.mat_model_to_world = mat4.create();
-
-
-			console.log(resources["textures/posx.jpg"]);
 
 			this.cube = regl.cube(
 				resources["textures/posx.jpg"], resources["textures/negx.jpg"],

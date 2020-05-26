@@ -3,6 +3,8 @@ precision mediump float;
 uniform vec4 color;
 uniform sampler2D texureBlock;
 
+uniform samplerCube envmap;
+
 varying vec2 tex_position;
 
 varying vec3 v2f_normal; // normal vector in camera coordinates
@@ -10,6 +12,8 @@ varying vec3 v2f_dir_to_light; // direction to light source
 varying vec3 v2f_dir_from_view; // viewing vector (from eye to vertex in view coordinates)
 
 const vec3  light_color = vec3(.0, 1., 1.);
+
+
 
 		
 void main () {
@@ -29,5 +33,9 @@ void main () {
 
 
     vec3 color = ambient_light + diffuse_light + specularLight;
-    gl_FragColor = vec4(color, 1.); // output: RGBA in 0..1 range
+
+    vec4 env_color =  textureCube(envmap, normalize(reflectDir));
+
+
+    gl_FragColor = mix(vec4(color, 1.) , env_color , 0.1); // output: RGBA in 0..1 range
 }
