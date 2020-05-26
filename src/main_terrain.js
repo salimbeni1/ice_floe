@@ -161,7 +161,7 @@ async function main() {
 	const texture_fbm = (() => {
 		for(const t of noise_textures) {
 			//if(t.name === 'FBM') {
-			if(t.name === 'Turb') {
+			if(t.name === 'W-Eucl') {
 				return t;
 			}
 		}

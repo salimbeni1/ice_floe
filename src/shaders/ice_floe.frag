@@ -2,10 +2,10 @@ precision mediump float;
 
 uniform vec4 color;
 uniform sampler2D texureBlock;
+
+varying vec2 tex_position;
 		
 void main () {
 
-    float state = texture2D(texureBlock, vec2(0.) ).r;
-
-	gl_FragColor = vec4(state);
+	gl_FragColor = texture2D(texureBlock, tex_position );
 }
