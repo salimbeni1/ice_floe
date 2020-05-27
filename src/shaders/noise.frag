@@ -511,3 +511,46 @@ vec3 tex_worley_euld_2nd(vec2 point){
 // ------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------
 
+
+
+// DISTORTION !!! 
+
+
+vec3 tex_distorted_borders( vec2 point ){
+
+	vec3 distortion = tex_turbulence(point * 1. );
+
+
+
+
+	vec3 color_distorted = tex_worley_euld_2nd( point + (distortion.xy * 0.2) );
+
+	vec3 final_color = vec3(1.);
+
+	if(color_distorted.r < 0.1){
+		final_color = tex_perlin(point * .5 );
+	}
+	else{
+		//inside the cracks
+	}
+
+	return final_color;
+
+
+
+}
+
+vec3 tex_distorted_borders_simple( vec2 point ){
+
+	// u can play with the 2 constants to get different results
+	vec3 distortion = tex_turbulence(point * 1. );
+	return tex_worley_euld_2nd( point + (distortion.xy * 0.2) );
+}
+
+
+// ------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------
+
+// normal map
+
