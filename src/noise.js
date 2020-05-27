@@ -114,6 +114,7 @@ function init_noise(regl, resources) {
 
 	const noise_textures = [
 		new NoiseTexture('distorted-border','tex_distorted_borders'),
+		new NoiseTexture('normal_map','tex_normal_map'),
 		new NoiseTexture('W-border', 'tex_worley_euld_2nd'),
 		new NoiseTexture('W-Eucl', 'tex_worley_euclidian'),
 		new NoiseTexture('W-Manh', 'tex_worley_manhatan'),

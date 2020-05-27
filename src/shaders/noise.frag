@@ -527,6 +527,7 @@ vec3 tex_distorted_borders( vec2 point ){
 
 	vec3 final_color = vec3(1.);
 
+	// TODO : distort considering perlin noise
 	if(color_distorted.r < 0.1){
 		final_color = tex_perlin(point * .5 );
 	}
@@ -553,4 +554,23 @@ vec3 tex_distorted_borders_simple( vec2 point ){
 // ------------------------------------------------------------------------------------
 
 // normal map
+
+vec3 tex_normal_map(vec2 point){
+
+	const float detail = 0.0001;
+
+	vec3 point1 = vec3( point  + vec2( detail ,  detail) , tex_distorted_borders(point + vec2( detail ,  detail) ).r);
+	vec3 point2 = vec3( point  + vec2(-detail , -detail) , tex_distorted_borders(point + vec2(-detail , -detail) ).r);
+	vec3 point3 = vec3( point  + vec2( detail , -detail) , tex_distorted_borders(point + vec2( detail , -detail) ).r);
+
+	vec3 vector1 = point1 - point2;
+	vec3 vector2 = point2 - point3;
+
+	vec3 final_normal = cross(vector1 , vector2);
+
+	return normalize(final_normal);
+
+}
+
+
 
