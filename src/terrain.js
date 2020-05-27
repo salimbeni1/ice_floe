@@ -156,6 +156,7 @@ function init_ice_floe(regl , resources , buffer ){
 			this.mat_model_to_world = mat4.create();
 			this.mat_camera_to_world = mat4.create();
 			this.camera_position = vec3.create(); // world coorinates
+			
 		}
 
 		draw({mat_projection, mat_view, light_position_cam}){
@@ -169,6 +170,7 @@ function init_ice_floe(regl , resources , buffer ){
 
 			mat4.invert(this.mat_camera_to_world , mat_view);
 			mat4.getTranslation(this.camera_position, this.mat_camera_to_world);
+			
 			
 			pipeline_draw_ice_floe({
 				mat_mvp: this.mat_mvp,
