@@ -575,7 +575,3 @@ vec3 tex_normal_map(vec2 point){
 	return normalize(final_normal) * 0.5 + 0.5;
 
 }
-
-
-
-

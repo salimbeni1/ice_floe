@@ -7,7 +7,10 @@ uniform mat4 mat_mvp;
 uniform mat4 mat_model_view;
 uniform mat3 mat_normals;
 
+uniform vec3 camera_position;
+
 varying vec2 tex_position;
+varying vec2 tex_position_parallax;
 
 varying vec3 v2f_normal; // normal vector in camera coordinates
 varying vec3 v2f_dir_to_light; // direction to light source
@@ -21,6 +24,7 @@ void main () {
 
     
     tex_position = position;
+    tex_position_parallax = position - camera_position.xy * 0.2;
 
 
     // viewing vector (from camera to vertex in view coordinates), camera is at vec3(0, 0, 0) in cam coords

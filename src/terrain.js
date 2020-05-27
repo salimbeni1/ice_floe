@@ -124,6 +124,7 @@ function init_ice_floe(regl , resources , buffer ){
 			mat_normals: regl.prop('mat_normals'),
 
 			light_position: regl.prop('light_position'),
+			camera_position: regl.prop('camera_position'),
 
 			texureBlock: buffer,
 
@@ -153,6 +154,8 @@ function init_ice_floe(regl , resources , buffer ){
 			this.mat_model_view = mat4.create();
 			this.mat_normals = mat3.create();
 			this.mat_model_to_world = mat4.create();
+			this.mat_camera_to_world = mat4.create();
+			this.camera_position = vec3.create(); // world coorinates
 		}
 
 		draw({mat_projection, mat_view, light_position_cam}){
@@ -163,11 +166,15 @@ function init_ice_floe(regl , resources , buffer ){
 			mat3.fromMat4(this.mat_normals, this.mat_model_view);
 			mat3.transpose(this.mat_normals, this.mat_normals);
 			mat3.invert(this.mat_normals, this.mat_normals);
+
+			mat4.invert(this.mat_camera_to_world , mat_view);
+			mat4.getTranslation(this.camera_position, this.mat_camera_to_world);
 			
 			pipeline_draw_ice_floe({
 				mat_mvp: this.mat_mvp,
 				mat_model_view: this.mat_model_view,
 				mat_normals: this.mat_normals,
+				camera_position : this.camera_position,
 		
 				light_position: light_position_cam,
 				cube : this.cube,
