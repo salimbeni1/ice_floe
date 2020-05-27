@@ -27,26 +27,24 @@ void main () {
 
     vec3 reflectDir =  reflect( normalize(-v2f_dir_to_light) , normalize(v2f_normal) ) ;
 
-    float shininess = 20.;
+    float shininess = 200.;
 
     vec3 specularLight = light_color * material_color * pow( max( dot( normalize(reflectDir) , normalize(v2f_dir_from_view) ) , 0.0) , shininess ) ;
 
     vec3 color = ambient_light + diffuse_light + specularLight;
 
+    gl_FragColor = vec4(color, 1.);
 
 
 
-
+    /*
     vec4 env_reflect_color =  textureCube(envmap, normalize(reflectDir));
 
     vec4 env_refract_color =  textureCube(envmap , normalize(refract(normalize(-v2f_dir_to_light) , normalize(v2f_normal) , 1./1.33) ));
-
-
-
-
 
     gl_FragColor = mix( 
         mix(vec4(color, 1.) , env_reflect_color , 0.06) , 
         env_refract_color , 
         0.1); // output: RGBA in 0..1 range
+    */
 }

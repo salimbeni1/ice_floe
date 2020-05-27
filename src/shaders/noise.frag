@@ -559,18 +559,23 @@ vec3 tex_normal_map(vec2 point){
 
 	const float detail = 0.0001;
 
-	vec3 point1 = vec3( point  + vec2( detail ,  detail) , tex_distorted_borders(point + vec2( detail ,  detail) ).r);
-	vec3 point2 = vec3( point  + vec2(-detail , -detail) , tex_distorted_borders(point + vec2(-detail , -detail) ).r);
-	vec3 point3 = vec3( point  + vec2( detail , -detail) , tex_distorted_borders(point + vec2( detail , -detail) ).r);
+	vec2 sample1 = point  + vec2( detail ,  detail);
+	vec2 sample2 = point  + vec2(-detail , -detail);
+	vec2 sample3 = point  + vec2( detail , -detail);
+
+	vec3 point1 = vec3( sample1 , tex_distorted_borders(sample1).r);
+	vec3 point2 = vec3( sample2 , tex_distorted_borders(sample2).r);
+	vec3 point3 = vec3( sample3 , tex_distorted_borders(sample3).r);
 
 	vec3 vector1 = point1 - point2;
 	vec3 vector2 = point2 - point3;
 
 	vec3 final_normal = cross(vector1 , vector2);
 
-	return normalize(final_normal);
+	return normalize(final_normal) * 0.5 + 0.5;
 
 }
+
 
 
 

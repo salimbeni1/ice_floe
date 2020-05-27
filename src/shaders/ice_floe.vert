@@ -28,7 +28,7 @@ void main () {
     // direction to light source
     v2f_dir_to_light =  light_position.xyz - ( mat_model_view * vec4(position,0, 1) ).xyz; 
     // transform normal to camera coordinates
-    v2f_normal = mat_normals * vec3(0,0,1); // apply normal transformation
+    v2f_normal = mat_normals * tex_normal_map(position); // apply normal transformation
 
     gl_Position = mat_mvp * vec4(position ,0 , 1); // apply mvp matrix
 
