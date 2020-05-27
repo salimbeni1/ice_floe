@@ -7,6 +7,8 @@ uniform mat4 mat_mvp;
 uniform mat4 mat_model_view;
 uniform mat3 mat_normals;
 
+varying mat3 mat_normals_copy;
+
 uniform vec3 camera_position;
 
 
@@ -27,6 +29,8 @@ void main () {
     
     tex_position = position;
 
+    mat_normals_copy = mat_normals;
+
     /*
     // for parallax
     tex_position_parallax = 
@@ -46,7 +50,7 @@ void main () {
     v2f_dir_to_light =  light_position.xyz - ( mat_model_view * vec4(position,0, 1) ).xyz; 
     // transform normal to camera coordinates
     // transform normal vector to range [-1,1] with '* 2.0 - 1.0' 
-    v2f_normal = mat_normals * ( tex_normal_map(position) * 2.0 - 1.0 ); // apply normal transformation
+    //v2f_normal = mat_normals * ( tex_normal_map(position) * 2.0 - 1.0 ); // apply normal transformation
     //v2f_normal = mat_normals * vec3( 0., 0., 1. );
     
     gl_Position = mat_mvp * vec4(position ,0 , 1); // apply mvp matrix
