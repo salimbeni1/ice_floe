@@ -7,6 +7,8 @@ uniform mat4 mat_mvp;
 uniform mat4 mat_model_view;
 uniform mat3 mat_normals;
 
+varying mat3 mat_normals_copy;
+
 uniform vec3 camera_position;
 
 
@@ -23,6 +25,9 @@ uniform vec4 light_position_world;
 		
         
 void main () {
+
+
+    mat_normals_copy = mat_normals;
 
     
     tex_position = position;

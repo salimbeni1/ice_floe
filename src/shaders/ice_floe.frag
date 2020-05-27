@@ -13,7 +13,7 @@ varying vec3 v2f_normal; // normal vector in camera coordinates
 varying vec3 v2f_dir_to_light; // direction to light source
 varying vec3 v2f_dir_from_view; // viewing vector (from eye to vertex in view coordinates)
 
-
+varying mat3 mat_normals_copy;
 
 
 		
@@ -35,6 +35,9 @@ void main () {
 
     vec3 color = ambient_light + diffuse_light + specularLight;
 
+    color = mat_normals_copy * ( tex_normal_map(tex_position) * 2.0 - 1.0 ) ;
+
+    color = v2f_normal;
 
 
     
