@@ -23,7 +23,7 @@ void main () {
 
     vec3  light_color = vec3(.5, 1., 1.);
 
-    vec3 material_color = tex_distorted_worley_euclidian( tex_position_parallax );
+    vec3 material_color = tex_distorted_worley_euclidian( tex_position );
 
     vec3 ambient_light = 0.2 * light_color * material_color ;
 
@@ -38,12 +38,14 @@ void main () {
 
 
     
-
+    /*
     
     vec4 env_reflect_color =  textureCube(envmap, normalize(reflectDir));
 
     vec4 env_refract_color =  textureCube(envmap , normalize(refract(normalize(-v2f_dir_to_light) , normalize(v2f_normal) , 1./1.33) ));
 
+
+    
     color = mix( 
         mix(vec4(color, 1.) , env_reflect_color , 
         0.04 // how much reflected
@@ -52,13 +54,15 @@ void main () {
         0.0 // how much refracted
         ).rgb;
 
-
+    
 
 
     if( tex_distorted_borders_simple( tex_position ).x < 0.1){
         // border
         color = vec3(0.);
     }
+    */
+
 
     gl_FragColor = vec4(color, 1.);
     
