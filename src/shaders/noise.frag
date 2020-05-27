@@ -529,7 +529,7 @@ vec3 tex_distorted_borders( vec2 point ){
 
 	// TODO : distort considering perlin noise
 	if(color_distorted.r < 0.1){
-		final_color = tex_perlin(point * .5 );
+		final_color = tex_perlin(point * .2 ) ;
 	}
 	else{
 		//inside the cracks
