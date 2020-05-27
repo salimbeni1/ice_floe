@@ -541,6 +541,14 @@ vec3 tex_distorted_borders( vec2 point ){
 
 }
 
+vec3 tex_distorted_worley_euclidian( vec2 point ){
+
+	// u can play with the 2 constants to get different results
+	vec3 distortion = tex_turbulence(point * 1. );
+	return tex_worley_euclidian( point + (distortion.xy * 0.2) );
+}
+
+
 vec3 tex_distorted_borders_simple( vec2 point ){
 
 	// u can play with the 2 constants to get different results

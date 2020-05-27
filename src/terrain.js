@@ -125,6 +125,8 @@ function init_ice_floe(regl , resources , buffer ){
 
 			light_position: regl.prop('light_position'),
 			camera_position: regl.prop('camera_position'),
+			light_position_world : regl.prop('light_position_world'),
+
 
 			texureBlock: buffer,
 
@@ -156,10 +158,11 @@ function init_ice_floe(regl , resources , buffer ){
 			this.mat_model_to_world = mat4.create();
 			this.mat_camera_to_world = mat4.create();
 			this.camera_position = vec3.create(); // world coorinates
+			this.light_position_world = vec3.create();
 			
 		}
 
-		draw({mat_projection, mat_view, light_position_cam}){
+		draw({mat_projection, mat_view, light_position_cam , light_position_world}){
 
 			mat4_matmul_many(this.mat_model_view, mat_view, this.mat_model_to_world);
 			mat4_matmul_many(this.mat_mvp, mat_projection, this.mat_model_view);
@@ -171,7 +174,6 @@ function init_ice_floe(regl , resources , buffer ){
 			mat4.invert(this.mat_camera_to_world , mat_view);
 			mat4.getTranslation(this.camera_position, this.mat_camera_to_world);
 			
-			
 			pipeline_draw_ice_floe({
 				mat_mvp: this.mat_mvp,
 				mat_model_view: this.mat_model_view,
@@ -179,6 +181,7 @@ function init_ice_floe(regl , resources , buffer ){
 				camera_position : this.camera_position,
 		
 				light_position: light_position_cam,
+				light_position_world : light_position_world,
 				cube : this.cube,
 			});
 		}

@@ -256,6 +256,7 @@ async function main() {
 				mat_view:        mat_view,
 				mat_projection:  mat_projection,
 				light_position_cam: light_position_cam,
+				light_position_world : light_position_world,
 			}
 
 			// Set the whole image to black

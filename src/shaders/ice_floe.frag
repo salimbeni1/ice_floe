@@ -23,7 +23,7 @@ void main () {
 
     vec3  light_color = vec3(.5, 1., 1.);
 
-    vec3 material_color = tex_worley_euclidian( tex_position_parallax );
+    vec3 material_color = tex_distorted_worley_euclidian( tex_position_parallax );
 
     vec3 ambient_light = 0.2 * light_color * material_color ;
 
@@ -55,7 +55,7 @@ void main () {
 
 
 
-    if(tex_worley_euld_2nd( tex_position ).x < 0.1){
+    if( tex_distorted_borders_simple( tex_position ).x < 0.1){
         // border
         color = vec3(0.);
     }

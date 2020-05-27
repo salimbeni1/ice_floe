@@ -9,6 +9,7 @@ uniform mat3 mat_normals;
 
 uniform vec3 camera_position;
 
+
 varying vec2 tex_position;
 varying vec2 tex_position_parallax;
 
@@ -18,13 +19,23 @@ varying vec3 v2f_dir_from_view; // viewing vector (from eye to vertex in view co
 
 
 uniform vec4 light_position; //in camera space coordinates already
+uniform vec4 light_position_world; 
 		
         
 void main () {
 
     
     tex_position = position;
-    tex_position_parallax = position - camera_position.xy * 0.2;
+
+    // for parallax
+    tex_position_parallax = 
+        position - camera_position.xy 
+        * 0.2; // OFFSET
+
+    
+    
+    // for shadows
+    //tex_position_parallax = position + light_position_world.xy * 0.2;
 
 
     // viewing vector (from camera to vertex in view coordinates), camera is at vec3(0, 0, 0) in cam coords
