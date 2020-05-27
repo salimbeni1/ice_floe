@@ -28,8 +28,10 @@ void main () {
     // direction to light source
     v2f_dir_to_light =  light_position.xyz - ( mat_model_view * vec4(position,0, 1) ).xyz; 
     // transform normal to camera coordinates
-    v2f_normal = mat_normals * tex_normal_map(position); // apply normal transformation
-
+    // transform normal vector to range [-1,1] with '* 2.0 - 1.0' 
+    v2f_normal = mat_normals * ( tex_normal_map(position) * 2.0 - 1.0 ); // apply normal transformation
+    //v2f_normal = mat_normals * vec3( 0., 0., 1. );
+    
     gl_Position = mat_mvp * vec4(position ,0 , 1); // apply mvp matrix
 
 }
