@@ -234,7 +234,28 @@ async function main() {
 	let light_position_world = [0.2, -0.3, 0.8, 1.0];
 	//let light_position_world = [1, -1, 1., 1.0];
 
-	const light_position_cam = [0, 0, 0, 0];
+
+	window.addEventListener("keydown", function (event) {
+		update_needed = true;
+		switch(event.key) {
+			case "ArrowUp":
+				light_position_world[1] += 0.1;
+			  break;
+			case "ArrowDown":
+				light_position_world[1] -= 0.1;
+			  break;
+			case "ArrowLeft":
+				light_position_world[0] -= 0.1;
+			  break;
+			case "ArrowRight":
+				light_position_world[0] += 0.1;
+			  break;
+			default:
+			  // code block
+		  }
+	});
+
+	const light_position_cam = vec4.create();
 
 	regl.frame((frame) => {
 		if(update_needed) {

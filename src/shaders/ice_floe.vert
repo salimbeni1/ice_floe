@@ -27,15 +27,17 @@ void main () {
     
     tex_position = position;
 
+    /*
     // for parallax
     tex_position_parallax = 
         position - camera_position.xy 
+        //* tex_distorted_borders(position).r // to make the OFFSET depend on the texture
         * 0.2; // OFFSET
 
-    
+    */
     
     // for shadows
-    //tex_position_parallax = position + light_position_world.xy * 0.2;
+    tex_position_parallax = position + normalize(light_position_world).xy * 0.2;
 
 
     // viewing vector (from camera to vertex in view coordinates), camera is at vec3(0, 0, 0) in cam coords
