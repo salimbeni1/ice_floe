@@ -22,9 +22,14 @@ varying vec3 v2f_dir_from_view; // viewing vector (from eye to vertex in view co
 
 uniform vec4 light_position; //in camera space coordinates already
 uniform vec4 light_position_world; 
+
+
+varying float zoom;
 		
         
 void main () {
+
+    zoom = 2.;
 
     
     tex_position = position;
@@ -41,7 +46,7 @@ void main () {
     */
     
     // for shadows
-    tex_position_parallax = position + normalize(light_position_world).xy * 0.2;
+    tex_position_parallax = position + normalize(light_position_world).xy * 0.05 * zoom;
 
 
     // viewing vector (from camera to vertex in view coordinates), camera is at vec3(0, 0, 0) in cam coords

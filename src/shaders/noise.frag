@@ -389,7 +389,7 @@ vec3 worley_noise_euclidian(vec2 point , float zoom){
         }
     }
 
-    return vec3(m_dist);
+    return 1. - vec3(m_dist);
 }
 
 
@@ -443,10 +443,63 @@ vec3 worley_euld_2nd(vec2 point , float zoom){
 }
 
 
+vec3 distorted_borders( vec2 point , float zoom ){
+
+	vec3 distortion = tex_turbulence(point * 1. );
+
+	vec3 color_distorted = worley_euld_2nd( point + (distortion.xy * 0.15 *zoom)  , zoom);
+
+	vec3 final_color = vec3(1.);
+
+	// TODO : distort considering perlin noise
+	if(color_distorted.r < 0.1){
+		final_color = tex_perlin(point * .2 ) ;
+	}
+	else{
+		//inside the cracks
+	}
+
+	return final_color;
+}
+
+
+
+vec3 tex_normal_map(vec2 point , float zoom){
+
+	const float detail = 0.0001;
+
+	vec2 sample1 = point  + vec2( detail ,  detail);
+	vec2 sample2 = point  + vec2(-detail , -detail);
+	vec2 sample3 = point  + vec2( detail , -detail);
+
+	vec3 point1 = vec3( sample1 , distorted_borders(sample1 , zoom).r);
+	vec3 point2 = vec3( sample2 , distorted_borders(sample2 , zoom).r);
+	vec3 point3 = vec3( sample3 , distorted_borders(sample3 , zoom).r);
+
+	vec3 vector1 = point1 - point2;
+	vec3 vector2 = point2 - point3;
+
+	vec3 final_normal = cross(vector1 , vector2);
+
+	return normalize(final_normal) * 0.5 + 0.5;
+
+}
+
+
+vec3 tex_distorted_worley_euclidian( vec2 point , float zoom ){
+
+	// u can play with the 2 constants to get different results
+	vec3 distortion = tex_turbulence(point * 1. );
+	return worley_noise_euclidian( point + (distortion.xy * zoom * 0.2)  , zoom);
+}
+
 vec3 tex_worley_euclidian_optimal(vec2 point){
 
-	return worley_euld_2nd(point , 1.);
+	return tex_distorted_worley_euclidian(point , 1.);
 }
+
+
+
 
 
 // ------------------------------------------------------------------------------------
