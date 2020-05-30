@@ -239,16 +239,16 @@ async function main() {
 		update_needed = true;
 		switch(event.key) {
 			case "ArrowUp":
-				light_position_world[1] += 0.1;
+				light_position_world[1] += 0.05;
 			  break;
 			case "ArrowDown":
-				light_position_world[1] -= 0.1;
+				light_position_world[1] -= 0.05;
 			  break;
 			case "ArrowLeft":
-				light_position_world[0] -= 0.1;
+				light_position_world[0] -= 0.05;
 			  break;
 			case "ArrowRight":
-				light_position_world[0] += 0.1;
+				light_position_world[0] += 0.05;
 			  break;
 			default:
 			  // code block

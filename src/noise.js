@@ -113,6 +113,8 @@ function init_noise(regl, resources) {
 	}
 
 	const noise_textures = [
+
+		new NoiseTexture('optimal','tex_worley_euclidian_optimal'),
 		new NoiseTexture('distorted-border','tex_distorted_borders'),
 		new NoiseTexture('normal_map','tex_normal_map'),
 		new NoiseTexture('W-border', 'tex_worley_euld_2nd'),
