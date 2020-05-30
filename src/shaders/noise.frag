@@ -356,11 +356,10 @@ vec2 random2( vec2 p ) {
     return fract(sin(vec2(dot(p,vec2(127.1,311.7)),dot(p,vec2(269.5,183.3))))*43758.5453);
 }
 
-vec3 worley_noise_euclidian(vec2 point , float resolution){
+vec3 worley_noise_euclidian(vec2 point , float zoom){
 
-	vec2 st = point/resolution;
+	vec2 st = point/zoom;
     st.x *= 1.;// u_resolution.x/u_resolution.y; we r assuming the texture is squared
-    vec3 color = vec3(.0);
 
     // Scale
     st *= 3.;
@@ -390,14 +389,7 @@ vec3 worley_noise_euclidian(vec2 point , float resolution){
         }
     }
 
-    // Draw the min distance (distance field)
-    color += m_dist;
-
-    // Draw cell center
-    // color += 1.-step(.02, m_dist);
-
-
-    return color;
+    return vec3(m_dist);
 }
 
 
