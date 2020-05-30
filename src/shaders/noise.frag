@@ -490,7 +490,7 @@ vec3 tex_distorted_worley_euclidian( vec2 point , float zoom ){
 
 	// u can play with the 2 constants to get different results
 	vec3 distortion = tex_turbulence(point * 1. );
-	return worley_noise_euclidian( point + (distortion.xy * zoom * 0.2)  , zoom);
+	return worley_noise_euclidian( point + (distortion.xy * 0.15 * zoom)  , zoom);
 }
 
 vec3 tex_worley_euclidian_optimal(vec2 point){
