@@ -42,9 +42,9 @@ void main () {
 
     vec3 color = ambient_light + diffuse_light + specularLight;
 
-
-    if(distort_snow(tex_position , zoom ,  .2 , 0.5).r > 0.1 ){
-        color = distort_snow(tex_position , zoom ,  .2 , 0.5);
+    vec3 snow = distort_snow(tex_position , zoom ,  .2 , 0.5);
+    if(snow.r > 0. ){
+        color = mix( color , snow + 0.3  , snow.r+ 0.3  ) ;
     }
 
 
