@@ -114,16 +114,15 @@ function init_noise(regl, resources) {
 
 	const noise_textures = [
 
-		new NoiseTexture('optimal','tex_worley_euclidian_optimal'),
+		new NoiseTexture('normal','tex_normal_optimized'),
+		new NoiseTexture('kwdkdlnnlkwc','tex_cndwcdkdwcnk'),
+		
+		new NoiseTexture('cwkcnwkc','tex_disturbed_optimied'),
 		new NoiseTexture('distorted-border','tex_distorted_borders'),
 		new NoiseTexture('normal_map','tex_normal_map'),
 		new NoiseTexture('W-border', 'tex_worley_euld_2nd'),
 		new NoiseTexture('W-Eucl', 'tex_worley_euclidian'),
-		new NoiseTexture('W-Manh', 'tex_worley_manhatan'),
-		new NoiseTexture('W-EM', 'tex_worley_manhatan_euclidian'),
-		new NoiseTexture('FBM', 'tex_fbm'),
-		new NoiseTexture('Turb', 'tex_turbulence'),
-		new NoiseTexture('FBM_for_terrain', 'tex_fbm_for_terrain', true),
+		
 	];
 
 	return noise_textures;

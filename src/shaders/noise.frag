@@ -433,13 +433,9 @@ vec3 worley_euld_2nd(vec2 point , float zoom){
         }
     }
 
-    vec3 color = vec3(.0);
 	float noise = (m2_dist - m_dist);
-	if(noise < 0.01)
-		color = vec3(0.);
-	else
-		color = vec3(1.);
-	return color;
+	return mix( vec3(0.) , vec3(1.) , smoothstep( 0.0 , 0.5 , noise) );
+	
 }
 
 
@@ -449,24 +445,14 @@ vec3 distorted_borders( vec2 point , float zoom ){
 
 	vec3 color_distorted = worley_euld_2nd( point + (distortion.xy * 0.15 *zoom)  , zoom);
 
-	vec3 final_color = vec3(1.);
-
-	// TODO : distort considering perlin noise
-	if(color_distorted.r < 0.1){
-		final_color = tex_perlin(point * .2 ) ;
-	}
-	else{
-		//inside the cracks
-	}
-
-	return final_color;
+	return mix( tex_perlin(point * .2 ) , vec3(1.) , smoothstep( 0.0 , 0.5 , color_distorted.r) ) ;
 }
 
 
 
 vec3 tex_normal_map(vec2 point , float zoom){
 
-	const float detail = 0.0001;
+	const float detail = 0.001;
 
 	vec2 sample1 = point  + vec2( detail ,  detail);
 	vec2 sample2 = point  + vec2(-detail , -detail);
@@ -541,6 +527,9 @@ vec3 worley_euld_2nd_larger(vec2 point , float zoom , float spread){
 	else
 		color = vec3(1.);
 	return color;
+
+	// TODO make smooth
+	
 }
 
 
@@ -571,14 +560,20 @@ vec3 distort_snow(vec2 point , float zoom , float spread , float snow_level){
 }
 
 
-vec3 tex_worley_euclidian_optimal(vec2 point){
+vec3 tex_normal_optimized(vec2 point){
 
-	return distort_snow(point , 1. , .2 , 0.5);
+	//return distort_snow(point , 1. , .2 , 0.5);
+	return tex_normal_map(point , 1.);
 }
 
+vec3 tex_disturbed_optimied(vec2 point){
 
+	return distorted_borders(point , 1.);
+}
 
-
+vec3 tex_cndwcdkdwcnk(vec2 point){
+	return worley_euld_2nd(point , 1.);
+}
 
 
 
@@ -605,10 +600,6 @@ vec3 worley_noise_euclidian(vec2 point , vec2 points[size] , int arraySize){
         
     }
 
-	// Blue Ice
-	//vec3 color = vec3(.0 , 1. , 1.0);
-    //color.xy -= vec2(m_dist);
-
 	vec3 color = vec3(1.);
 	color -= vec3(m_dist);
 	return color;
@@ -616,71 +607,9 @@ vec3 worley_noise_euclidian(vec2 point , vec2 points[size] , int arraySize){
 
 vec3 tex_worley_euclidian(vec2 point){
 
-	// TODO : make the points array dynamic
 	initArrays(); 
-
 	return worley_noise_euclidian(point , points , size);
 
-}
-
-vec3 worley_noise_manhatan(vec2 point , vec2 points[size] , int arraySize){
-	float m_dist = 404.;  // minimum distance
-	int closestIndex = 0;
-
-    // Iterate through the points positions
-    for (int i = 0; i < size; i++) {
-		vec2 p = point -points[i];
-		float dist = abs(p.x)+abs(p.y);
-        // Keep the closer distance
-		if(m_dist > dist ){
-			m_dist =  dist;
-			closestIndex = i;
-		}
-        
-    }
-
-	vec3 color = vec3(1.);
-	color -= vec3(m_dist);
-	return color;
-}
-
-vec3 tex_worley_manhatan(vec2 point){
-
-	// TODO : make the points array dynamic
-	initArrays(); 
-
-	return worley_noise_manhatan(point , points , size);
-
-}
-
-vec3 worley_manhatan_euclidian(vec2 point , vec2 points[size] , int arraySize){
-	float m_dist = 404.;  // minimum distance
-	int closestIndex = 0;
-
-    // Iterate through the points positions
-    for (int i = 0; i < size; i++) {
-		vec2 p = point -points[i];
-		float manhatan = abs(p.x)+abs(p.y);
-
-		float dist = mix(manhatan , length(p) , 0.8);
-        // Keep the closer distance
-		if(m_dist > dist ){
-			m_dist =  dist;
-			closestIndex = i;
-		}
-        
-    }
-
-	vec3 color = vec3(1.);
-	color -= vec3(m_dist);
-	return color;
-}
-
-vec3 tex_worley_manhatan_euclidian(vec2 point){
-	// TODO : make the points array dynamic
-	initArrays(); 
-
-	return worley_manhatan_euclidian(point , points , size);
 }
 
 
@@ -712,26 +641,14 @@ vec3 worley_euld_2nd(vec2 point , vec2 points[size] , int arraySize){
         
     }
 
-	/* 
-	// failed attempt to blurr edges
-	vec3 noise = vec3(m2_dist - m_dist);
-	float valueChange = length(point) * 0.5;
-	float isBorder = 1. - smoothstep(0.05 - valueChange, 0.05 + valueChange, noise.x);
-	vec3 color = mix( vec3(0.) , vec3(1.) , isBorder);
-	return color;
-	*/
-
 	vec3 color = vec3(.0);
 	float noise = (m2_dist - m_dist);
-
 	return mix( vec3(0.) , vec3(1.) , smoothstep( 0.01 - 0.01 , 0.01 + 0.01 , noise) );
 	
 }
 
 vec3 tex_worley_euld_2nd(vec2 point){
-	// TODO : make the points array dynamic
 	initArrays(); 
-
 	return worley_euld_2nd(point , points , size);
 }
 
@@ -756,16 +673,12 @@ vec3 tex_distorted_borders( vec2 point ){
 }
 
 vec3 tex_distorted_worley_euclidian( vec2 point ){
-
-	// u can play with the 2 constants to get different results
 	vec3 distortion = tex_turbulence(point * 1. );
 	return tex_worley_euclidian( point + (distortion.xy * 0.2) );
 }
 
 
 vec3 tex_distorted_borders_simple( vec2 point ){
-
-	// u can play with the 2 constants to get different results
 	vec3 distortion = tex_turbulence(point * 1. );
 	return tex_worley_euld_2nd( point + (distortion.xy * 0.2) );
 }
@@ -779,7 +692,7 @@ vec3 tex_distorted_borders_simple( vec2 point ){
 
 vec3 tex_normal_map(vec2 point){
 
-	const float detail = 0.0001;
+	const float detail = 0.001;
 
 	vec2 sample1 = point  + vec2( detail ,  detail);
 	vec2 sample2 = point  + vec2(-detail , -detail);
