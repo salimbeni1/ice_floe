@@ -597,14 +597,10 @@ vec3 worley_manhatan_euclidian(vec2 point , vec2 points[size] , int arraySize){
 }
 
 vec3 tex_worley_manhatan_euclidian(vec2 point){
-
-
 	// TODO : make the points array dynamic
 	initArrays(); 
 
 	return worley_manhatan_euclidian(point , points , size);
-
-
 }
 
 
