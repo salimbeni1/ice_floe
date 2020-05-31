@@ -723,11 +723,16 @@ vec3 worley_euld_2nd(vec2 point , vec2 points[size] , int arraySize){
 
 	vec3 color = vec3(.0);
 	float noise = (m2_dist - m_dist);
+
+
+
 	if(noise < 0.01)
 		color = vec3(0.);
 	else
 		color = vec3(1.);
-	return color;
+	// return color;
+
+	return  mix( vec3(1.) , vec3(0.) , float(noise < 0.01) );
 	
 }
 
