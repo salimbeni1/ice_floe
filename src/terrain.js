@@ -131,6 +131,8 @@ function init_ice_floe(regl , resources , buffer ){
 
 			reflect_level : regl.prop("reflect_level"),
 
+			refract_level : regl.prop("refract_level"),
+
 
 			texureBlock: buffer,
 
@@ -166,7 +168,7 @@ function init_ice_floe(regl , resources , buffer ){
 			
 		}
 
-		draw({mat_projection, mat_view, light_position_cam , light_position_world , zoom , reflect_level}){
+		draw({mat_projection, mat_view, light_position_cam , light_position_world , zoom , reflect_level , refract_level}){
 
 			mat4_matmul_many(this.mat_model_view, mat_view, this.mat_model_to_world);
 			mat4_matmul_many(this.mat_mvp, mat_projection, this.mat_model_view);
@@ -189,6 +191,7 @@ function init_ice_floe(regl , resources , buffer ){
 				cube : this.cube,
 				zoom : zoom,
 				reflect_level :reflect_level,
+				refract_level : refract_level,
 			});
 		}
 

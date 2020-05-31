@@ -16,6 +16,7 @@ varying vec3 v2f_dir_to_light; // direction to light source
 varying vec3 v2f_dir_from_view; // viewing vector (from eye to vertex in view coordinates)
 
 uniform float reflect_level;
+uniform float refract_level;
 
 
 
@@ -74,14 +75,14 @@ void main () {
     
     vec4 env_reflect_color =  textureCube(envmap, normalize(reflectDir));
 
-    vec4 env_refract_color =  textureCube(envmap , normalize(refract(normalize(-v2f_dir_to_light) , normalize(normal) , 1./1.33) ));
+    vec4 env_refract_color =  textureCube(envmap , normalize(refract(normalize(-v2f_dir_to_light) , normalize(normal) , 1./1.33) )); // refract angle
 
     color = mix( 
         mix(vec4(color, 1.) , env_reflect_color , 
         reflect_level // how much reflected
         ) , 
         env_refract_color , 
-        0.0 // how much refracted
+        refract_level // how much refracted
         ).rgb;
 
 

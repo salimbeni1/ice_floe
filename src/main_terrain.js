@@ -269,6 +269,12 @@ async function main() {
 		update_needed = true;
 	});
 
+
+	const refrac_range = document.getElementById("refractRange");
+	refrac_range.addEventListener("change", function() {
+		update_needed = true;
+	});
+
 	regl.frame((frame) => {
 		if(update_needed) {
 			update_needed = false; // do this *before* running the drawing code so we don't keep updating if drawing throws an error.
@@ -294,6 +300,8 @@ async function main() {
 				zoom : zoom_range.value * 1.0, // to cast it to float
 
 				reflect_level : reflect_range.value * 1.0,
+
+				refract_level : refrac_range.value * 1.0,
 			}
 			// Set the whole image to black
 			regl.clear({color: [0.0, 0.0, 0., 1]});
