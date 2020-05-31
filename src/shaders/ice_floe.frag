@@ -24,13 +24,13 @@ void main () {
 
     
 
-    vec3 normal = ( mat_normals_copy * ( tex_normal_map( tex_position , zoom ) * 2.0 - 1.0 ) );
+    vec3 normal = ( mat_normals_copy * ( tex_normal_map( tex_position  ) * 2.0 - 1.0 ) );
 
     vec3 reflectDir =  reflect( normalize(-v2f_dir_to_light) , normalize(normal) ) ;
 
     vec3  light_color = vec3(.5, 1., 1.);
 
-    vec3 material_color = tex_distorted_worley_euclidian( tex_position_parallax , zoom );
+    vec3 material_color = tex_distorted_worley_euclidian( tex_position_parallax  );
 
     vec3 ambient_light = 0.2 * light_color * material_color ;
 
