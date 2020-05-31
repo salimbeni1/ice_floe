@@ -493,10 +493,72 @@ vec3 tex_distorted_worley_euclidian( vec2 point , float zoom ){
 	return worley_noise_euclidian( point + (distortion.xy * 0.15 * zoom)  , zoom);
 }
 
+
+vec3 worley_euld_2nd_larger(vec2 point , float zoom , float spread){
+
+	vec2 st = point/zoom;
+    st.x *= 1.;// u_resolution.x/u_resolution.y; we r assuming the texture is squared
+
+    // Scale
+    st *= 3.;
+
+    // Tile the space
+    vec2 i_st = floor(st);
+    vec2 f_st = fract(st);
+
+    float m_dist = 1.;  // minimum distance
+	float m2_dist = 2.;
+
+    for (int y= -1; y <= 1; y++) {
+        for (int x= -1; x <= 1; x++) {
+            // Neighbor place in the grid
+            vec2 neighbor = vec2(float(x),float(y));
+
+            // Random position from current + neighbor place in the grid
+            vec2 point = random2(i_st + neighbor);
+
+			// Vector between the pixel and the point
+            vec2 diff = neighbor + point - f_st;
+
+            // Distance to the point
+            float dist = length(diff);
+
+            // Keep the closer distance
+            //m_dist = min(m_dist, dist);
+
+			if(m_dist > dist ){
+				m2_dist = m_dist;
+				m_dist =  dist;
+			} else if (dist < m2_dist && dist != m_dist)  
+				m2_dist = dist; 
+        }
+    }
+
+    vec3 color = vec3(.0);
+	float noise = (m2_dist - m_dist);
+	if(noise < spread)
+		color = vec3(0.);
+	else
+		color = vec3(1.);
+	return color;
+}
+
+
+vec3 distorted_worley_euld_2nd_larger( vec2 point , float zoom , float spread){
+
+	// u can play with the 2 constants to get different results
+	vec3 distortion = tex_turbulence(point * 1. );
+	return worley_euld_2nd_larger( point + (distortion.xy * 0.15 * zoom)  , zoom , spread);
+}
+
+
+
 vec3 tex_worley_euclidian_optimal(vec2 point){
 
-	return tex_distorted_worley_euclidian(point , 1.);
+	return distorted_worley_euld_2nd_larger(point , 1. , .2);
 }
+
+
 
 
 
