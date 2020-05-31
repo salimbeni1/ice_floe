@@ -23,13 +23,11 @@ varying vec3 v2f_dir_from_view; // viewing vector (from eye to vertex in view co
 uniform vec4 light_position; //in camera space coordinates already
 uniform vec4 light_position_world; 
 
-
-varying float zoom;
+uniform float zoom;
 		
         
 void main () {
 
-    zoom = 2.;
 
     
     tex_position = position;

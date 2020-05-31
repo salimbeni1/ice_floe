@@ -3,6 +3,8 @@ precision mediump float;
 uniform vec4 color;
 uniform sampler2D texureBlock;
 
+uniform float zoom;
+
 uniform samplerCube envmap;
 
 varying mat3 mat_normals_copy;
@@ -13,17 +15,13 @@ varying vec2 tex_position_parallax;
 varying vec3 v2f_dir_to_light; // direction to light source
 varying vec3 v2f_dir_from_view; // viewing vector (from eye to vertex in view coordinates)
 
-varying float zoom ; 
 
 
 
 
 		
 void main () {
-
-
     
-
     vec3 normal = ( mat_normals_copy * ( tex_normal_map( tex_position , zoom ) * 2.0 - 1.0 ) );
 
     vec3 reflectDir =  reflect( normalize(-v2f_dir_to_light) , normalize(normal) ) ;

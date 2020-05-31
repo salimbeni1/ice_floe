@@ -257,6 +257,11 @@ async function main() {
 
 	const light_position_cam = vec4.create();
 
+	const zoom_range = document.getElementById("zoomRange");
+	zoom_range.addEventListener("change", function() {
+		update_needed = true;
+	});
+
 	regl.frame((frame) => {
 		if(update_needed) {
 			update_needed = false; // do this *before* running the drawing code so we don't keep updating if drawing throws an error.
@@ -278,8 +283,9 @@ async function main() {
 				mat_projection:  mat_projection,
 				light_position_cam: light_position_cam,
 				light_position_world : light_position_world,
-			}
 
+				zoom : zoom_range.value * 1.0, // to cast it to float
+			}
 			// Set the whole image to black
 			regl.clear({color: [0.0, 0.0, 0., 1]});
 
