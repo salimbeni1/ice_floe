@@ -552,10 +552,28 @@ vec3 distorted_worley_euld_2nd_larger( vec2 point , float zoom , float spread){
 }
 
 
+vec3 distorted_noised_worley_euld_2nd_larger( vec2 point , float zoom , float spread , float snow_level){
+	// white --> snow
+	if( distorted_worley_euld_2nd_larger(point , zoom , spread).r < 0.1){
+		if(tex_fbm(point*5.).r < snow_level){
+			return vec3(0.);
+		}
+		return tex_fbm(point*5.);
+	}else {
+		return vec3(0.);
+	}
+}
+
+
+vec3 distort_snow(vec2 point , float zoom , float spread , float snow_level){
+	vec3 distortion = tex_turbulence(point * 1. );
+	return distorted_noised_worley_euld_2nd_larger( point + (distortion.xy * 0.1 * zoom)  , zoom , spread , snow_level);
+}
+
 
 vec3 tex_worley_euclidian_optimal(vec2 point){
 
-	return distorted_worley_euld_2nd_larger(point , 1. , .2);
+	return distort_snow(point , 1. , .2 , 0.5);
 }
 
 
