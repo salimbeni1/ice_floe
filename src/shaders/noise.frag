@@ -586,8 +586,8 @@ vec3 distorted_noised_worley_euld_2nd_larger( vec2 point , float zoom , float sp
 }
 
 vec3 distort_snow(vec2 point , float zoom , float spread , float snow_level){
-	vec3 distortion = tex_turbulence(point * 1. );
-	return distorted_noised_worley_euld_2nd_larger( point + (distortion.xy * 0.1 * zoom)  , zoom , spread , snow_level);
+	// vec3 distortion = tex_turbulence(point * 1. );
+	return distorted_noised_worley_euld_2nd_larger( point , zoom , spread , snow_level);
 }
 
 // ------------------------------------------------------------------------------------
