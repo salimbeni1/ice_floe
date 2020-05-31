@@ -751,18 +751,7 @@ vec3 tex_distorted_borders( vec2 point ){
 
 	vec3 color_distorted = tex_worley_euld_2nd( point + (distortion.xy * 0.2) );
 
-	vec3 final_color = vec3(1.);
-
-	if(color_distorted.r < 0.1){
-		final_color = tex_perlin(point * .2 ) ;
-	}
-	else{
-		//inside the cracks
-	}
-
-	return final_color;
-
-
+	return mix( tex_perlin(point * .2 ) , vec3(1.) , smoothstep( 0.0 , 0.5 , color_distorted.r) ) ;
 
 }
 
