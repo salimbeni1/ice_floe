@@ -724,15 +724,7 @@ vec3 worley_euld_2nd(vec2 point , vec2 points[size] , int arraySize){
 	vec3 color = vec3(.0);
 	float noise = (m2_dist - m_dist);
 
-
-
-	if(noise < 0.01)
-		color = vec3(0.);
-	else
-		color = vec3(1.);
-	// return color;
-
-	return  mix( vec3(1.) , vec3(0.) , float(noise < 0.01) );
+	return mix( vec3(0.) , vec3(1.) , smoothstep( 0.01 - 0.01 , 0.01 + 0.01 , noise) );
 	
 }
 
@@ -757,14 +749,10 @@ vec3 tex_distorted_borders( vec2 point ){
 
 	vec3 distortion = tex_turbulence(point * 1. );
 
-
-
-
 	vec3 color_distorted = tex_worley_euld_2nd( point + (distortion.xy * 0.2) );
 
 	vec3 final_color = vec3(1.);
 
-	// TODO : distort considering perlin noise
 	if(color_distorted.r < 0.1){
 		final_color = tex_perlin(point * .2 ) ;
 	}
