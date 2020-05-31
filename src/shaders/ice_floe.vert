@@ -24,6 +24,8 @@ uniform vec4 light_position; //in camera space coordinates already
 uniform vec4 light_position_world; 
 
 uniform float zoom;
+
+
 		
         
 void main () {

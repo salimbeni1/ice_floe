@@ -19,6 +19,10 @@ uniform float reflect_level;
 uniform float refract_level;
 
 
+uniform float snow_spread;
+uniform float snow_level;
+
+
 
 		
 void main () {
@@ -63,7 +67,7 @@ void main () {
 
 
 
-    vec3 snow = distort_snow(tex_position , zoom ,  .2 , 0.5);
+    vec3 snow = distort_snow(tex_position , zoom , snow_spread , snow_level );
     if(snow.r > 0. ){
         color = mix( color , snow + 0.3  , snow.r+ 0.3  ) ;
     }

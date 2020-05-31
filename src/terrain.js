@@ -134,6 +134,10 @@ function init_ice_floe(regl , resources , buffer ){
 			refract_level : regl.prop("refract_level"),
 
 
+			snow_spread : regl.prop("snow_spread"),
+			snow_level : regl.prop("snow_level"),
+
+
 			texureBlock: buffer,
 
 			color: [1, 0, 0, 1]
@@ -168,7 +172,7 @@ function init_ice_floe(regl , resources , buffer ){
 			
 		}
 
-		draw({mat_projection, mat_view, light_position_cam , light_position_world , zoom , reflect_level , refract_level}){
+		draw({mat_projection, mat_view, light_position_cam , light_position_world , zoom , reflect_level , refract_level , snow_spread , snow_level}){
 
 			mat4_matmul_many(this.mat_model_view, mat_view, this.mat_model_to_world);
 			mat4_matmul_many(this.mat_mvp, mat_projection, this.mat_model_view);
@@ -192,6 +196,9 @@ function init_ice_floe(regl , resources , buffer ){
 				zoom : zoom,
 				reflect_level :reflect_level,
 				refract_level : refract_level,
+
+				snow_spread : snow_spread,
+				snow_level : snow_level,
 			});
 		}
 
