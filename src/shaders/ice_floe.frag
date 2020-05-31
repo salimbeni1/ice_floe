@@ -42,6 +42,28 @@ void main () {
 
     vec3 color = ambient_light + diffuse_light + specularLight;
 
+
+
+
+    
+    vec3 normal2 = ( mat_normals_copy * vec3(0,0,1) );
+
+    vec3 reflectDir2 =  reflect( normalize(-v2f_dir_to_light) , normalize(normal2) ) ;
+
+    vec3 diffuse_light2 = light_color  * material_color * max( dot( normalize(normal2) , normalize(v2f_dir_to_light) ) , 0.0 ) ;
+
+    vec3 specularLight2 = light_color * material_color * pow( max( dot( normalize(reflectDir2) , normalize(v2f_dir_from_view) ) , 0.0) , shininess ) ;
+
+    vec3 color2 = ambient_light + diffuse_light2 + specularLight2;
+
+    // to make the cracks look transparent
+    color = mix(color , color2 , 0.5);
+
+
+
+
+
+
     vec3 snow = distort_snow(tex_position , zoom ,  .2 , 0.5);
     if(snow.r > 0. ){
         color = mix( color , snow + 0.3  , snow.r+ 0.3  ) ;

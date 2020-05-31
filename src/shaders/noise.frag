@@ -445,29 +445,37 @@ vec3 distorted_borders( vec2 point , float zoom ){
 
 	vec3 color_distorted = worley_euld_2nd( point + (distortion.xy * 0.15 *zoom)  , zoom);
 
-	return mix( tex_perlin(point * .2 ) , vec3(1.) , smoothstep( 0.0 , 0.5 , color_distorted.r) ) ;
+	return mix( vec3(0.) , vec3(1.) , smoothstep( 0. , 1. , color_distorted.r) ) ;
 }
 
 
 
 vec3 tex_normal_map(vec2 point , float zoom){
 
-	const float detail = 0.001;
+	if(distorted_borders(point , zoom).r < 0.2){
 
-	vec2 sample1 = point  + vec2( detail ,  detail);
-	vec2 sample2 = point  + vec2(-detail , -detail);
-	vec2 sample3 = point  + vec2( detail , -detail);
+		const float detail = 0.0001;
 
-	vec3 point1 = vec3( sample1 , distorted_borders(sample1 , zoom).r);
-	vec3 point2 = vec3( sample2 , distorted_borders(sample2 , zoom).r);
-	vec3 point3 = vec3( sample3 , distorted_borders(sample3 , zoom).r);
+		vec2 sample1 = point  + vec2( detail ,  detail);
+		vec2 sample2 = point  + vec2(-detail , -detail);
+		vec2 sample3 = point  + vec2( detail , -detail);
 
-	vec3 vector1 = point1 - point2;
-	vec3 vector2 = point2 - point3;
+		vec3 point1 = vec3( sample1 , distorted_borders(sample1 , zoom).r);
+		vec3 point2 = vec3( sample2 , distorted_borders(sample2 , zoom).r);
+		vec3 point3 = vec3( sample3 , distorted_borders(sample3 , zoom).r);
 
-	vec3 final_normal = cross(vector1 , vector2);
+		vec3 vector1 = point1 - point2;
+		vec3 vector2 = point2 - point3;
 
-	return normalize(final_normal) * 0.5 + 0.5;
+		vec3 final_normal = cross(vector1 , vector2);
+
+		return normalize(final_normal) * 0.5 + 0.5;
+		
+
+	}
+	else{
+		return vec3(0.5 , 0.5 , 1);
+	}
 
 }
 
@@ -541,23 +549,7 @@ vec3 distorted_worley_euld_2nd_larger( vec2 point , float zoom , float spread){
 }
 
 
-vec3 distorted_noised_worley_euld_2nd_larger( vec2 point , float zoom , float spread , float snow_level){
-	// white --> snow
-	if( distorted_worley_euld_2nd_larger(point , zoom , spread).r < 0.1){
-		if(tex_fbm(point*5.).r < snow_level){
-			return vec3(0.);
-		}
-		return tex_fbm(point*5.);
-	}else {
-		return vec3(0.);
-	}
-}
 
-
-vec3 distort_snow(vec2 point , float zoom , float spread , float snow_level){
-	vec3 distortion = tex_turbulence(point * 1. );
-	return distorted_noised_worley_euld_2nd_larger( point + (distortion.xy * 0.1 * zoom)  , zoom , spread , snow_level);
-}
 
 
 vec3 tex_normal_optimized(vec2 point){
@@ -576,6 +568,27 @@ vec3 tex_cndwcdkdwcnk(vec2 point){
 }
 
 
+// ------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------
+
+// snow
+vec3 distorted_noised_worley_euld_2nd_larger( vec2 point , float zoom , float spread , float snow_level){
+	// white --> snow
+	if( distorted_worley_euld_2nd_larger(point , zoom , spread).r < 0.1){
+		if(tex_fbm(point*5.).r < snow_level){
+			return vec3(0.);
+		}
+		return tex_fbm(point*5.);
+	}else {
+		return vec3(0.);
+	}
+}
+
+vec3 distort_snow(vec2 point , float zoom , float spread , float snow_level){
+	vec3 distortion = tex_turbulence(point * 1. );
+	return distorted_noised_worley_euld_2nd_larger( point + (distortion.xy * 0.1 * zoom)  , zoom , spread , snow_level);
+}
 
 // ------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------
@@ -606,10 +619,8 @@ vec3 worley_noise_euclidian(vec2 point , vec2 points[size] , int arraySize){
 }
 
 vec3 tex_worley_euclidian(vec2 point){
-
 	initArrays(); 
 	return worley_noise_euclidian(point , points , size);
-
 }
 
 
@@ -675,12 +686,6 @@ vec3 tex_distorted_borders( vec2 point ){
 vec3 tex_distorted_worley_euclidian( vec2 point ){
 	vec3 distortion = tex_turbulence(point * 1. );
 	return tex_worley_euclidian( point + (distortion.xy * 0.2) );
-}
-
-
-vec3 tex_distorted_borders_simple( vec2 point ){
-	vec3 distortion = tex_turbulence(point * 1. );
-	return tex_worley_euld_2nd( point + (distortion.xy * 0.2) );
 }
 
 
