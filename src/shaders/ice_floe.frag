@@ -15,7 +15,7 @@ varying vec2 tex_position_parallax;
 varying vec3 v2f_dir_to_light; // direction to light source
 varying vec3 v2f_dir_from_view; // viewing vector (from eye to vertex in view coordinates)
 
-
+uniform float reflect_level;
 
 
 
@@ -78,7 +78,7 @@ void main () {
 
     color = mix( 
         mix(vec4(color, 1.) , env_reflect_color , 
-        0.04 // how much reflected
+        reflect_level // how much reflected
         ) , 
         env_refract_color , 
         0.0 // how much refracted

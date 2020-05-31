@@ -236,29 +236,36 @@ async function main() {
 
 
 	window.addEventListener("keydown", function (event) {
-		update_needed = true;
-		switch(event.key) {
-			case "ArrowUp":
-				light_position_world[1] += 0.05;
-			  break;
-			case "ArrowDown":
-				light_position_world[1] -= 0.05;
-			  break;
-			case "ArrowLeft":
-				light_position_world[0] -= 0.05;
-			  break;
-			case "ArrowRight":
-				light_position_world[0] += 0.05;
-			  break;
-			default:
-			  // code block
-		  }
+		if(canvas_elem.mouseIsOver){
+			update_needed = true;
+			switch(event.key) {
+				case "ArrowUp":
+					light_position_world[1] += 0.05;
+				break;
+				case "ArrowDown":
+					light_position_world[1] -= 0.05;
+				break;
+				case "ArrowLeft":
+					light_position_world[0] -= 0.05;
+				break;
+				case "ArrowRight":
+					light_position_world[0] += 0.05;
+				break;
+				default:
+				// code block
+			}
+		}
 	});
 
 	const light_position_cam = vec4.create();
 
 	const zoom_range = document.getElementById("zoomRange");
 	zoom_range.addEventListener("change", function() {
+		update_needed = true;
+	});
+
+	const reflect_range = document.getElementById("reflectRange");
+	reflect_range.addEventListener("change", function() {
 		update_needed = true;
 	});
 
@@ -285,6 +292,8 @@ async function main() {
 				light_position_world : light_position_world,
 
 				zoom : zoom_range.value * 1.0, // to cast it to float
+
+				reflect_level : reflect_range.value * 1.0,
 			}
 			// Set the whole image to black
 			regl.clear({color: [0.0, 0.0, 0., 1]});
