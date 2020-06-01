@@ -231,23 +231,27 @@ async function main() {
 	/*---------------------------------------------------------------
 		Video recording
 	---------------------------------------------------------------*/
+
+	/*
 	
 	const video = new CanvasVideoRecording({
-	canvas: canvas_elem,
-	// videoBitsPerSecond: 250*1024, // tweak that if the quality is bad 
-	// https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder/MediaRecorder
-});
+		canvas: canvas_elem,
+		// videoBitsPerSecond: 250*1024, // tweak that if the quality is bad 
+		// https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder/MediaRecorder
+		});
 
-		function video_start_stop() {
+	function video_start_stop() {
 		if(video.is_recording()) {
 			video.stop();
 		} else {
 			video.start();
 		}
+	}
 
 	register_keyboard_action('r', video_start_stop);
-	
 
+	*/
+	
 	
 	/*---------------------------------------------------------------
 		Frame render
@@ -353,7 +357,7 @@ async function main() {
 			ice_floe_actor.draw(scene_info);
 			
 			// recording
-			video.push_frame();
+			//video.push_frame();
 		}
 	});
 
