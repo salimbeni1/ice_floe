@@ -495,9 +495,9 @@ vec3 tex_normal_map(vec2 point , float zoom){
 		vec2 sample2 = point  + vec2(-detail , -detail);
 		vec2 sample3 = point  + vec2( detail , -detail);
 
-		vec3 point1 = vec3( sample1 , distorted_borders(sample1 , zoom).r);
-		vec3 point2 = vec3( sample2 , distorted_borders(sample2 , zoom).r);
-		vec3 point3 = vec3( sample3 , distorted_borders(sample3 , zoom).r);
+		vec3 point1 = vec3( sample1 , distorted_borders(sample1 , zoom).r/500. ) ;
+		vec3 point2 = vec3( sample2 , distorted_borders(sample2 , zoom).r/500. ) ;
+		vec3 point3 = vec3( sample3 , distorted_borders(sample3 , zoom).r/500. ) ;
 
 		vec3 vector1 = point1 - point2;
 		vec3 vector2 = point2 - point3;

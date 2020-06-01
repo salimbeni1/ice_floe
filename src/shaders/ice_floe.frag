@@ -27,7 +27,8 @@ uniform float snow_level;
 		
 void main () {
     
-    vec3 normal = ( mat_normals_copy * ( tex_normal_grain( tex_position ) * 2.0 - 1.0 ) );
+    vec3 normal = ( mat_normals_copy * 
+        (( tex_normal_grain( tex_position ) * 2.0 - 1.0 ) + ( tex_normal_map( tex_position , zoom ) * 2.0 - 1.0 ) ));
 
     vec3 reflectDir =  reflect( normalize(-v2f_dir_to_light) , normalize(normal) ) ;
 
