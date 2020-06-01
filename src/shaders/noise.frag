@@ -301,6 +301,18 @@ vec3 tex_marble(vec2 point) {
 
 
 
+
+// ============================================================
+
+vec3 normal_grain(vec2 point) {
+
+	
+
+	return mix( vec3( perlin_noise(point * 40.)) , vec3( perlin_fbm(point * 5.)) , 0.2 );
+}
+
+
+
 // =============================================================
 // Worley noise
 

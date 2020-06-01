@@ -114,6 +114,8 @@ function init_noise(regl, resources) {
 
 	const noise_textures = [
 
+		
+		new NoiseTexture('whdciwichw', 'normal_grain'),
 		new NoiseTexture('normal','tex_normal_optimized'),
 		new NoiseTexture('kwdkdlnnlkwc','tex_cndwcdkdwcnk'),
 		
