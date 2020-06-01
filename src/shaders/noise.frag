@@ -306,9 +306,32 @@ vec3 tex_marble(vec2 point) {
 
 vec3 normal_grain(vec2 point) {
 
-	
+	//return mix( vec3(perlin_noise(point * 2000.)) , vec3(1.) , smoothstep( 0.0 , 0.5 , perlin_fbm(point)) )/1000.;
 
-	return mix( vec3( perlin_noise(point * 40.)) , vec3( perlin_fbm(point * 5.)) , 0.2 );
+	return vec3(turbulence(point*10.)/2000.);
+	//mix( vec3( perlin_noise(point * 200.)) , vec3( perlin_fbm(point * 5.)) , 0.9 );
+}
+
+
+vec3 tex_normal_grain(vec2 point){
+
+	const float detail = 0.001;
+
+	vec2 sample1 = point  + vec2( detail ,  detail);
+	vec2 sample2 = point  + vec2(-detail , -detail);
+	vec2 sample3 = point  + vec2( detail , -detail);
+
+	vec3 point1 = vec3( sample1 , normal_grain(sample1).r);
+	vec3 point2 = vec3( sample2 , normal_grain(sample2).r);
+	vec3 point3 = vec3( sample3 , normal_grain(sample3).r);
+
+	vec3 vector1 = point1 - point2;
+	vec3 vector2 = point2 - point3;
+
+	vec3 final_normal = cross(vector1 , vector2);
+
+	return normalize(final_normal) * 0.5 + 0.5;
+
 }
 
 
