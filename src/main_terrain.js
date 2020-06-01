@@ -112,15 +112,16 @@ async function main() {
 	let cam_distance_factor = 1.;
 
 	let cam_target = [0, 0, 0];
-	let cam_world_position = [1,0,0];
+	let cam_world_position = [0,0,0];
 
 	function update_cam_transform() {
 
 		let r = cam_distance_base*cam_distance_factor;
 		// Example camera matrix, looking along forward-X, edit this
-		cam_world_position[0] = -r;
+		const temp  = vec3.copy(vec3.create() , cam_world_position);
+		temp[0] -= r;
 		const look_at = mat4.lookAt(mat4.create(),
-		  cam_world_position , // camera position in world coord
+		  temp , // camera position in world coord
 		  cam_target , // view target point
 		  [0, 0, 1] , // up vector
 		);
@@ -355,16 +356,32 @@ async function main() {
 	// B(t) = (1 - t)3P0 + 3(1-t)2tP1 + 3(1-t)t2P2 + t3P3
 	console.log(getCurvePointsTimed(points , 5.5));
 
-	let time = 0.;
+	let timeb = 0.;
 
 	register_keyboard_action('b', function (){
 		
-		const offset1 = getCurvePointsTimed(points , time);
-		const offset2 = getCurvePointsTimed(points , time+0.01);
+		const offset1 = getCurvePointsTimed(points , timeb);
+		const offset2 = getCurvePointsTimed(points , timeb+0.01);
 
 		light_position_world[0] += (offset1[0] - offset2[0])*0.01 ;
 		light_position_world[1] += (offset1[1] - offset2[1])*0.01 ;
 		//update_cam_transform();
+		update_needed = true;
+		timeb += 0.01;
+	});
+
+
+	let time = 0.;
+
+	register_keyboard_action('n', function (){
+		
+		const offset1 = getCurvePointsTimed(points , time);
+		const offset2 = getCurvePointsTimed(points , time+0.01);
+
+		cam_world_position[0] += (offset1[0] - offset2[0])*0.01 ;
+		cam_world_position[1] += (offset1[1] - offset2[1])*0.01 ;
+
+		update_cam_transform();
 		update_needed = true;
 		time += 0.01;
 	});
