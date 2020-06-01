@@ -331,5 +331,29 @@ async function main() {
 	});
 }
 
+
+
+
+// Bezier curve implementation : 
+
+const points = [ 
+  [20,200],
+  [200,20],
+  [40,50],
+  [340,400],
+  [123,230],
+  [20,250],
+  [200,320],
+  [40,350],
+  [240,400],
+  [114,440]
+ ];
+
+// B(t) = (1 - t)3P0 + 3(1-t)2tP1 + 3(1-t)t2P2 + t3P3
+
+console.log(getCurvePointsTimed(points , 5.5));
+
+
+
 DOM_loaded_promise.then(main);
 
