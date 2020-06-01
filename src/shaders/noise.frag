@@ -565,11 +565,14 @@ vec3 worley_euld_2nd_larger(vec2 point , float zoom , float spread){
 
     vec3 color = vec3(.0);
 	float noise = (m2_dist - m_dist);
+	/*
 	if(noise < spread)
 		color = vec3(0.);
 	else
 		color = vec3(1.);
-	return color;
+	return color;*/
+
+	return mix( vec3(0.) ,  vec3(1.) , smoothstep(spread -0.4 , spread+0.4 ,  noise ) );
 
 	// TODO make smooth
 	
@@ -610,6 +613,7 @@ vec3 tex_cndwcdkdwcnk(vec2 point){
 // snow
 vec3 distorted_noised_worley_euld_2nd_larger( vec2 point , float zoom , float spread , float snow_level){
 	// white --> snow
+	/*
 	if( distorted_worley_euld_2nd_larger(point , zoom , spread).r < 0.1){
 		if(tex_fbm(point*5.).r < snow_level){
 			return vec3(0.);
@@ -617,7 +621,17 @@ vec3 distorted_noised_worley_euld_2nd_larger( vec2 point , float zoom , float sp
 		return tex_fbm(point*5.);
 	}else {
 		return vec3(0.);
-	}
+	}*/
+
+	return mix( 
+		mix( tex_fbm(point*5.) , vec3(0.) , smoothstep( snow_level-0.3 , snow_level+0.3 , tex_fbm(point*5.).r )) ,
+		vec3(0.)  ,
+		smoothstep(
+			0. ,
+			0.3 ,
+			distorted_worley_euld_2nd_larger(point , zoom , spread).r
+			) 
+		)*10.;
 }
 
 vec3 distort_snow(vec2 point , float zoom , float spread , float snow_level){
