@@ -112,15 +112,17 @@ async function main() {
 	let cam_distance_factor = 1.;
 
 	let cam_target = [0, 0, 0];
+	let cam_world_position = [1,0,0];
 
 	function update_cam_transform() {
 
 		let r = cam_distance_base*cam_distance_factor;
 		// Example camera matrix, looking along forward-X, edit this
+		cam_world_position[0] = -r;
 		const look_at = mat4.lookAt(mat4.create(),
-		  [-r, 0, 0], // camera position in world coord
-		  [0, 0, 0], // view target point
-		  [0, 0, 1], // up vector
+		  cam_world_position , // camera position in world coord
+		  cam_target , // view target point
+		  [0, 0, 1] , // up vector
 		);
 		// Store the combined transform in mat_world_to_cam
 		// mat_world_to_cam = A * B * ...
@@ -292,7 +294,7 @@ async function main() {
 	regl.frame((frame) => {
 		if(update_needed) {
 			update_needed = false; // do this *before* running the drawing code so we don't keep updating if drawing throws an error.
-
+			console.log(light_position_world);
 			mat4.perspective(mat_projection,
 				deg_to_rad * 60, // fov y
 				frame.framebufferWidth / frame.framebufferHeight, // aspect ratio
@@ -329,29 +331,48 @@ async function main() {
 			ice_floe_actor.draw(scene_info);
 		}
 	});
+
+
+
+
+
+
+	// Bezier curve implementation : 
+
+	const points = [ 
+	[20,200],
+	[200,20],
+	[40,50],
+	[340,400],
+	[123,230],
+	[20,250],
+	[200,320],
+	[40,350],
+	[240,400],
+	[114,440]
+	];
+
+	// B(t) = (1 - t)3P0 + 3(1-t)2tP1 + 3(1-t)t2P2 + t3P3
+	console.log(getCurvePointsTimed(points , 5.5));
+
+	let time = 0.;
+
+	register_keyboard_action('b', function (){
+		
+		const offset1 = getCurvePointsTimed(points , time);
+		const offset2 = getCurvePointsTimed(points , time+0.01);
+
+		light_position_world[0] += (offset1[0] - offset2[0])*0.01 ;
+		light_position_world[1] += (offset1[1] - offset2[1])*0.01 ;
+		//update_cam_transform();
+		update_needed = true;
+		time += 0.01;
+	});
+
 }
 
 
 
-
-// Bezier curve implementation : 
-
-const points = [ 
-  [20,200],
-  [200,20],
-  [40,50],
-  [340,400],
-  [123,230],
-  [20,250],
-  [200,320],
-  [40,350],
-  [240,400],
-  [114,440]
- ];
-
-// B(t) = (1 - t)3P0 + 3(1-t)2tP1 + 3(1-t)t2P2 + t3P3
-
-console.log(getCurvePointsTimed(points , 5.5));
 
 
 
