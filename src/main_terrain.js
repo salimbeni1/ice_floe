@@ -363,25 +363,20 @@ async function main() {
 
 
 
-
-
-
 	// Bezier curve implementation : 
-
 	const points = [ 
-	[20,200],
-	[200,20],
-	[40,50],
-	[340,400],
-	[123,230],
-	[20,250],
-	[200,320],
-	[40,350],
-	[240,400],
-	[114,440]
+		[500,500],
+		[450,450],
+		[370,570],
+		[460,670],
+		[700,700],
+		[750,350],
+		[250,170],
+		[100,800],
+		[800,900],
+		[950,50.]
 	];
 
-	// B(t) = (1 - t)3P0 + 3(1-t)2tP1 + 3(1-t)t2P2 + t3P3
 	console.log(getCurvePointsTimed(points , 5.5));
 
 	let timeb = 0.;
@@ -389,13 +384,13 @@ async function main() {
 	register_keyboard_action('b', function (){
 		
 		const offset1 = getCurvePointsTimed(points , timeb);
-		const offset2 = getCurvePointsTimed(points , timeb+0.01);
+		const offset2 = getCurvePointsTimed(points , timeb+0.05);
 
 		light_position_world[0] += (offset1[0] - offset2[0])*0.01 ;
 		light_position_world[1] += (offset1[1] - offset2[1])*0.01 ;
 		//update_cam_transform();
 		update_needed = true;
-		timeb += 0.01;
+		timeb += 0.05;
 	});
 
 
@@ -404,14 +399,14 @@ async function main() {
 	register_keyboard_action('n', function (){
 		
 		const offset1 = getCurvePointsTimed(points , time);
-		const offset2 = getCurvePointsTimed(points , time+0.01);
+		const offset2 = getCurvePointsTimed(points , time+0.1);
 
-		cam_world_position[0] += (offset1[0] - offset2[0])*0.01 ;
-		cam_world_position[1] += (offset1[1] - offset2[1])*0.01 ;
+		cam_world_position[0] += (offset1[0] - offset2[0])*0.001 ;
+		cam_world_position[1] += (offset1[1] - offset2[1])*0.001 ;
 
 		update_cam_transform();
 		update_needed = true;
-		time += 0.01;
+		time += 0.1;
 	});
 
 }
