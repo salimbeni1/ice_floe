@@ -51,6 +51,7 @@ function getCurvePointsTimed( controls, time ){
 
 }
 
+// B(t) = (1 - t)3P0 + 3(1-t)2tP1 + 3(1-t)t2P2 + t3P3
 
 function cubicBezier( p1,  p2,  p3,  p4,  t){
   return [
