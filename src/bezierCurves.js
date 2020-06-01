@@ -1,5 +1,9 @@
 "use strict";
 
+
+let timeLimit = undefined;
+
+
 function getCurvePointsTimed( controls, time ){
   
     const controlPoints = [];
@@ -23,8 +27,11 @@ function getCurvePointsTimed( controls, time ){
     console.log("i = "+i);
     console.log(controlPoints);
   
-    if(i >= controlPoints.length) 
-        return [0.,0.];
+    if(i >= controlPoints.length) {
+        if(timeLimit == undefined)
+            timeLimit = time;
+        return getCurvePointsTimed( controls , time % timeLimit );
+    }
 
     const  a0 = controlPoints[i];
     const  a1 = controlPoints[i+1];
