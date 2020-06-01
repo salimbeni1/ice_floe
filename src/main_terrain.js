@@ -226,6 +226,27 @@ async function main() {
 	register_keyboard_action('c', activate_preset_view);
 
 	/*---------------------------------------------------------------
+		Video recording
+	---------------------------------------------------------------*/
+	
+	const video = new CanvasVideoRecording({
+	canvas: canvas_elem,
+	// videoBitsPerSecond: 250*1024, // tweak that if the quality is bad 
+	// https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder/MediaRecorder
+});
+
+		function video_start_stop() {
+		if(video.is_recording()) {
+			video.stop();
+		} else {
+			video.start();
+		}
+
+	register_keyboard_action('r', video_start_stop);
+	
+
+	
+	/*---------------------------------------------------------------
 		Frame render
 	---------------------------------------------------------------*/
 	const mat_projection = mat4.create();
@@ -327,6 +348,9 @@ async function main() {
 			
 			environment_actor.draw(scene_info);
 			ice_floe_actor.draw(scene_info);
+			
+			// recording
+			video.push_frame();
 		}
 	});
 }
