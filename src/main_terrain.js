@@ -335,7 +335,9 @@ class CanvasVideoRecording {
 
 	push_frame() {
 		if(this.is_recording()) {
-			this.stream.requestFrame();
+			console.log(this.stream);
+			//this.stream.requestFrame();
+			this.stream.getVideoTracks()[0].requestFrame();
 			this.num_frames += 1;
 		}
 	}
