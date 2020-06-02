@@ -385,7 +385,7 @@ class CanvasVideoRecording {
 	
 	const video = new CanvasVideoRecording({
 		canvas: canvas_elem,
-	// videoBitsPerSecond: 250*1024, // tweak that if the quality is bad 
+		videoBitsPerSecond: 250*1024*1000, // tweak that if the quality is bad 
 	// https://developer.mozilla.org/en-US/docs/Web/API/MediaRecorder/MediaRecorder
 	});
 
