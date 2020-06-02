@@ -296,7 +296,7 @@ class CanvasVideoRecording {
 		/*
 		https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/captureStream
 		frameRate: 
-			If not set, a new frame will be captured each time the canvas changes; 
+			If not set, a new frame will bec captured eah time the canvas changes; 
 			if set to 0, frames will not be captured automatically; 
 			instead, they will only be captured when the returned track's requestFrame() method is called.
 		*/
