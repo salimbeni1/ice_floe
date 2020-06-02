@@ -67,16 +67,6 @@ void main () {
 
 
 
-
-    vec3 snow = distort_snow(tex_position , zoom , snow_spread , snow_level );
-    if(snow.r > 0. ){
-        color = mix( color , snow + 0.3  , snow.r+ 0.3  ) ;
-    }
-
-
-
-    
-
     
     vec4 env_reflect_color =  textureCube(envmap, normalize(reflectDir));
 
@@ -89,6 +79,14 @@ void main () {
         env_refract_color , 
         refract_level // how much refracted
         ).rgb;
+
+
+    vec3 snow = distort_snow(tex_position , zoom , snow_spread , snow_level );
+    if(snow.r > 0. ){
+        color = mix( color , snow + 0.3  , smoothstep( 0.0 , 0.5 , snow.r+ 0.3)  ) ;
+    }
+
+    
 
 
     gl_FragColor = vec4(color, 1.);
