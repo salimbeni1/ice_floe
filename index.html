@@ -57,22 +57,22 @@
 
 <div style="color: azure; z-index: 100;display: flex; flex-direction: row;">
 	Zoom: 
-  <input type="range" min="0.2" max="2" value="0.5" class="slider" step="0.01" id="zoomRange">
+  <input type="range" min="0.2" max="2" value="0.7" class="slider" step="0.01" id="zoomRange">
 	  Snow:
 	<div> 
-		<input type="range" min="0" max="1" value="0.5" class="slider" step="0.01" id="snowRange1">
-		<input type="range" min="0" max="1" value="0.5" class="slider" step="0.01" id="snowRange2">
+		<input type="range" min="0" max="1" value="0" class="slider" step="0.01" id="snowRange1">
+		<input type="range" min="0" max="1" value="0" class="slider" step="0.01" id="snowRange2">
 	</div>
   	Reflect:
-  <input type="range" min="0" max="1" value="0.13" class="slider" step="0.01" id="reflectRange">
+  <input type="range" min="0" max="1" value="0.05" class="slider" step="0.01" id="reflectRange">
   	Refract:
   <input type="range" min="0" max="1" value="0.0" class="slider" step="0.01" id="refractRange">
 </div>
 
 <!-- where we draw the simulation -->
 <div style="display: flex; flex-direction: row;width: 100%; height: 50%;">
-	<canvas id="textures" style="width: 0vw; height: 50vw;"></canvas>
-	<canvas id="simulation" style="width: 80vw; height: 50vw;"></canvas>
+	<canvas id="textures" style="width: 50vw; height: 50vw;"></canvas>
+	<canvas id="simulation" style="width: 50vw; height: 50vw;"></canvas>
 </div>
 
 

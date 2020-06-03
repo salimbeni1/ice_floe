@@ -514,12 +514,20 @@ vec3 tex_normal_map(vec2 point , float zoom){
 
 }
 
+vec3 print_normal1(vec2 point){
+	return tex_normal_map( point , 2.);
+}
+
 
 vec3 tex_distorted_worley_euclidian( vec2 point , float zoom ){
 
 	// u can play with the 2 constants to get different results
 	vec3 distortion = tex_turbulence(point * 1. );
 	return worley_noise_euclidian( point + (distortion.xy * 0.15 * zoom)  , zoom);
+}
+
+vec3 to_print2(vec2 point){
+	return tex_distorted_worley_euclidian(point , 2.);
 }
 
 
@@ -576,6 +584,10 @@ vec3 worley_euld_2nd_larger(vec2 point , float zoom , float spread){
 
 	// TODO make smooth
 	
+}
+
+vec3 to_print3(vec2 point){
+	return worley_euld_2nd_larger(point , 2., 0.1);
 }
 
 
