@@ -1,3 +1,9 @@
+
+/*
+This CSS governs the appearance of our site.
+You can find the basic concepts of CSS here: https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/How_CSS_works
+*/
+
 /*
 This makes the border and padding be counted as part of the element's size.
 https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Box_model
@@ -51,7 +57,6 @@ The various units of measurement available in CSS:
 	https://developer.mozilla.org/en-US/docs/Learn/CSS/Introduction_to_CSS/Values_and_units
 */
 
-<<<<<<< HEAD
 
 .button {
 	display: inline;
@@ -59,25 +64,6 @@ The various units of measurement available in CSS:
 	padding-right: 1.1rem;
 	margin-left: 0.25rem;
 	margin-right: 0.25rem;
-=======
-#plot {
-	width: 100%;
-	height: 100%;
-	/* margin: 1rem; */
-	border: 0px none;
-	margin: 0px;
-	padding: 0px;
-	top: 0px;
-	left: 0px;
-	position: absolute;
-}
-
-#debug-overlay {
-	top: 1rem;
-	left: 1rem;
-	position: absolute;
-	z-index: 2;
->>>>>>> 591abd4bbd634a7ddd0ba939c24e7661d9d1a849
 
 	border: white 1px solid;
 	border-radius: 0.5rem;
@@ -145,12 +131,9 @@ The various units of measurement available in CSS:
   background: #006bce; /* Green background */
   cursor: pointer; /* Cursor on hover */
 }
-<<<<<<< HEAD
 
 /* Red border */
 hr.new1 {
   border-top: 3px solid #006bce;
   width: 50%
 }
-=======
->>>>>>> 591abd4bbd634a7ddd0ba939c24e7661d9d1a849

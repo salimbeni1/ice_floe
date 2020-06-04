@@ -114,12 +114,12 @@ function init_noise(regl, resources) {
 
 	const noise_textures = [
 
-		new NoiseTexture('whdciwichw', 'to_print2'),
-		new NoiseTexture('whdciwichw', 'to_print3'),
-		new NoiseTexture('whdciwichw', 'print_normal1'),
-		new NoiseTexture('whdciwichw', 'tex_normal_grain'),
-		new NoiseTexture('whdciwichw', 'normal_grain'),
-		new NoiseTexture('whdciwichw', 'normal_grain'),
+		new NoiseTexture('Euclidian Worley noise ', 'to_print2'),
+		new NoiseTexture('Manathan Worley noise ', 'to_print3'),
+		new NoiseTexture('Normal map ', 'print_normal1'),
+		new NoiseTexture('Grain ', 'tex_normal_grain'),
+		new NoiseTexture('Texture ', 'normal_grain'),
+		new NoiseTexture('Texture ', 'normal_grain'),
 		
 	];
 
