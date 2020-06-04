@@ -35,45 +35,95 @@
 
 
 <main>
-<div id="debug-overlay" style="display: none;">
-	<p>
-	ICG Project : Ice Floe
-	<!-- <a href="src/main.js">source</a>  -->
-	⁙⁙ docs: 
-		<a href="https://github.com/regl-project/regl/blob/gh-pages/API.md">regl</a>,
-		<a href="http://glmatrix.net/docs/">gl-matrix</a>,
-		<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript">MDN</a>
-	⁙⁙ click and drag with mouse, scroll to zoom
-	⁙⁙ show/hide <strong class="keyboard">z</strong>
-	⁙ <span id="btn-screenshot" class="button">Save texture <strong class="keyboard">s</strong></span>
-	</p>
-	<ul id="variants"></ul>
-	<pre id="debug-text"></pre>
-	<p id="view-options">
-		<span id="btn-preset-view" class="button">Preset view <strong class="keyboard">c</strong></span>
-	</p>
+
+
+<h1> ICG Project : Ice Floe </h1>
+<h3> Etienne Salimbeni - Samuel Dietz </h3>
+
+
+
+<h2> Presentation </h2>
+
+<p>
+	We generate a procedural ice crack texture using a Voronoi diagram
+	and material parameters including a basic Phong shader.
+	We also make use of Bezier curves to move the light and the texture, and use a
+	Perslin Noise to simulate impurities on the ice's surface.
+</p>
+
+<hr class="new1">
+&nbsp;
+&nbsp;
+
+
+
+
+
+
+<h2> Textures overview </h2>
+
+
+<div>
+	<p style="text-align: center"> click and drag with mouse, scroll to zoom </p>
+	<canvas id="textures" style="width: 30%;  display: block;  margin-left: auto; margin-right: auto;"></canvas>
+</div>
+<ul id="variants"></ul>
+<pre id="debug-text"></pre>
+
+<hr class="new1">
+&nbsp;
+&nbsp;
+
+
+
+
+
+
+
+<h2> Simulation </h2>
+
+<p style="text-align: center"> click and drag with mouse, scroll to zoom </p>
+<div>
+	<canvas id="simulation" style="width: 30%;  display: block;  margin-left: auto; margin-right: auto;"></canvas>
 </div>
 
+&nbsp;
 
-<div style="color: azure; z-index: 100;display: flex; flex-direction: row;">
+<div style="color: azure; z-index: 100;display: flex; flex-direction: row; width: 100%;">
+
 	Zoom: 
   <input type="range" min="0.2" max="2" value="0.7" class="slider" step="0.01" id="zoomRange">
-	  Snow:
+  
+	 Snow:
 	<div> 
 		<input type="range" min="0" max="1" value="0" class="slider" step="0.01" id="snowRange1">
 		<input type="range" min="0" max="1" value="0" class="slider" step="0.01" id="snowRange2">
 	</div>
-  	Reflect:
+	
+	Reflect:
   <input type="range" min="0" max="1" value="0.05" class="slider" step="0.01" id="reflectRange">
-  	Refract:
+  
+	Refract:
   <input type="range" min="0" max="1" value="0.0" class="slider" step="0.01" id="refractRange">
-</div>
+  </div>
+  
+  <p>
+  <span id="btn-preset-view" class="button">Preset simulation view <strong class="keyboard">c</strong></span>
+  <span id="bezier-light" class="Nbutton">Light source's Bezier curve <strong class="keyboard">b</strong></span>
+  <span id="bezier-texture" class="Nbutton">Texture's Bezier curve <strong class="keyboard">n</strong></span>
 
-<!-- where we draw the simulation -->
-<div style="display: flex; flex-direction: row;width: 100%; height: 50%;">
-	<canvas id="textures" style="width: 50vw; height: 50vw;"></canvas>
-	<canvas id="simulation" style="width: 50vw; height: 50vw;"></canvas>
-</div>
+  </p>
+  
+<hr class="new1">
+&nbsp;
+&nbsp;
+
+
+
+
+
+
+
 
 
 <div id="debug-overlay">

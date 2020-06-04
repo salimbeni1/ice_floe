@@ -31,9 +31,8 @@ async function main() {
 	{
 		// Resize canvas to fit the window, but keep it square.
 		function resize_canvas() {
-			const s = Math.min(window.innerHeight, window.innerWidth) - 10;
-			canvas_elem.width = s;
-			canvas_elem.height = s;
+			canvas_elem.width = window.innerWidth;
+			canvas_elem.height = window.innerWidth;
 
 			update_needed = true;
 		}
@@ -163,20 +162,6 @@ async function main() {
 			entry.appendChild(key_indicator);
 		}	
 	});
-
-	// Show/hide overlay
-	register_keyboard_action('z', () => {
-		debug_overlay.classList.toggle('hide');
-	})
-
-	// Save texture as image
-	function save_texture() {
-		const tex_buffer = selected_tex.draw_texture_to_buffer({mouse_offset, zoom_factor});
-		framebuffer_to_image_download(regl, tex_buffer, `${selected_tex.name}.png`);
-	}
-
-	register_keyboard_action('s', save_texture);
-	document.getElementById('btn-screenshot').addEventListener('click', save_texture);
 
 	/*---------------------------------------------------------------
 		Frame render

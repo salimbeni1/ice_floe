@@ -30,8 +30,8 @@ async function main() {
 
 		// Resize canvas to fit the window, but keep it square.
 		function resize_canvas() {
-			canvas_elem.width = window.innerWidth/2;
-			canvas_elem.height = window.innerHeight;
+			canvas_elem.width = window.innerWidth / 2;
+			canvas_elem.height = window.innerWidth / 2;
 
 			update_needed = true;
 		}
@@ -455,8 +455,8 @@ class CanvasVideoRecording {
 	console.log(getCurvePointsTimed(points , 5.5));
 
 	let timeb = 0.;
-
-	register_keyboard_action('b', function (){
+	
+	function bezierOne() {
 		
 		const offset1 = getCurvePointsTimed(points , timeb);
 		const offset2 = getCurvePointsTimed(points , timeb+0.05);
@@ -466,12 +466,14 @@ class CanvasVideoRecording {
 		//update_cam_transform();
 		update_needed = true;
 		timeb += 0.05;
-	});
+	}
+
+	register_keyboard_action('b', bezierOne);
 
 
 	let time = 0.;
-
-	register_keyboard_action('n', function (){
+	
+	function bezierTwo() {
 		
 		const offset1 = getCurvePointsTimed(points , time);
 		const offset2 = getCurvePointsTimed(points , time+0.1);
@@ -482,7 +484,9 @@ class CanvasVideoRecording {
 		update_cam_transform();
 		update_needed = true;
 		time += 0.1;
-	});
+	}
+
+	register_keyboard_action('n', bezierTwo);
 
 }
 
