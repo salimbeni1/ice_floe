@@ -11,7 +11,7 @@
 
 	<link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body style="padding: 10%;">
 
 <!-- libraries import -->
 <script src="lib/gl-matrix_3.2.1/gl-matrix.js" defer="true"></script>
@@ -36,10 +36,10 @@
 
 <main>
 
-
-<h1> ICG Project : Ice Floe </h1>
-<h3> Etienne Salimbeni - Samuel Dietz </h3>
-
+<center>
+	<h1> ICG Project : Ice Floe </h1>
+	<h3> Etienne Salimbeni - Samuel Dietz </h3>
+</center>
 
 
 <h2> Overview </h2>
@@ -76,36 +76,33 @@
 &nbsp;
 
 
-
-
-
-
-
 <h2> Simulation </h2>
 
 <p style="text-align: center"> click and drag with mouse, scroll to zoom </p>
 <div>
-	<canvas id="simulation" style="width: 30%;  display: block;  margin-left: auto; margin-right: auto;"></canvas>
+	<canvas id="simulation" style="width: 50%;  display: block;  margin-left: auto; margin-right: auto;"></canvas>
 </div>
 
 &nbsp;
 
-<div style="color: azure; z-index: 100;display: flex; flex-direction: row; width: 100%;">
+<center>
 
-	Zoom: 
-  <input type="range" min="0.2" max="2" value="0.7" class="slider" step="0.01" id="zoomRange">
-  
-	 Snow:
-	<div> 
-		<input type="range" min="0" max="1" value="0" class="slider" step="0.01" id="snowRange1">
-		<input type="range" min="0" max="1" value="0" class="slider" step="0.01" id="snowRange2">
-	</div>
+	<div style="color: azure; z-index: 100;display: flex; flex-direction: row; width: 100%;">
+
+		Zoom: 
+	<input type="range" min="0.2" max="2" value="0.7" class="slider" step="0.01" id="zoomRange">
 	
-	Reflect:
-  <input type="range" min="0" max="1" value="0.05" class="slider" step="0.01" id="reflectRange">
-  
-	Refract:
-  <input type="range" min="0" max="1" value="0.0" class="slider" step="0.01" id="refractRange">
+		Snow:
+	<div> 
+			<input type="range" min="0" max="1" value="0" class="slider" step="0.01" id="snowRange1">
+			<input type="range" min="0" max="1" value="0" class="slider" step="0.01" id="snowRange2">
+	</div>
+		
+		Reflect:
+	<input type="range" min="0" max="1" value="0.05" class="slider" step="0.01" id="reflectRange">
+	
+		Refract:
+	<input type="range" min="0" max="1" value="0.0" class="slider" step="0.01" id="refractRange">
   </div>
   
   <p>
@@ -114,6 +111,8 @@
   <span id="bezier-texture" class="Nbutton">Texture's Bezier curve <strong class="keyboard">n</strong></span>
 
   </p>
+
+</center>
   
 <hr class="new1">
 &nbsp;
